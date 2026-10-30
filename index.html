@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>作文メーカー</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Klee+One:wght@400;600&family=Zen+Maru+Gothic:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f6f2ea;
+    --paper: #fffdf8;
+    --ink: #23304a;
+    --sub: #6b7385;
+    --line: #e3dccd;
+    --accent: #2f6fb0;
+    --accent-soft: #e6f0fa;
+    --ok: #2e8b57;
+    --red: #e0322f;
+    --red-soft: #fdecec;
+    --warn-soft: #fff6e0;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Zen Maru Gothic", "Hiragino Maru Gothic ProN", "Meiryo", sans-serif;
+    line-height: 1.7;
+    -webkit-text-size-adjust: 100%;
+  }
+  button { font-family: inherit; }
+  header {
+    background: var(--paper);
+    border-bottom: 1px solid var(--line);
+    padding: 12px 16px;
+  }
+  .head-inner {
+    max-width: 1100px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  }
+  h1 { font-size: 1.35rem; margin: 0; letter-spacing: .05em; }
+  h1 small { font-size: .8rem; color: var(--sub); font-weight: 500; margin-left: 8px; }
+  .steps { display: flex; gap: 6px; list-style: none; margin: 0; padding: 0; flex-wrap: wrap; }
+  .steps li {
+    font-size: .8rem; padding: 3px 10px; border-radius: 999px;
+    background: #eee9df; color: var(--sub);
+  }
+  .steps li.active { background: var(--accent); color: #fff; }
+  .steps li.done { background: var(--accent-soft); color: var(--accent); }
+  main { max-width: 1100px; margin: 0 auto; padding: 20px 16px 60px; }
+  [hidden] { display: none !important; }
+
+  /* ---------- 質問 ---------- */
+  .qcard {
+    max-width: 680px; margin: 10px auto 0;
+    background: var(--paper); border: 1px solid var(--line); border-radius: 16px;
+    padding: 28px 24px; box-shadow: 0 2px 0 var(--line);
+  }
+  .qprogress { display: flex; gap: 6px; margin-bottom: 18px; }
+  .qprogress span { flex: 1; height: 6px; border-radius: 3px; background: #eee9df; }
+  .qprogress span.on { background: var(--accent); }
+  .qnum { color: var(--accent); font-weight: 700; font-size: .95rem; }
+  .qlabel { font-size: 1.3rem; font-weight: 700; margin: 4px 0 18px; line-height: 1.6; }
+  .qlabel .quote { background: var(--accent-soft); padding: 0 4px; border-radius: 4px; }
+  .qhint { color: var(--sub); font-size: .9rem; margin: -8px 0 12px; }
+  textarea, input[type=text] {
+    width: 100%; font: inherit; font-size: 1.1rem; color: var(--ink);
+    border: 2px solid var(--line); border-radius: 10px; padding: 12px 14px; background: #fff;
+    resize: vertical;
+  }
+  textarea:focus, input[type=text]:focus { outline: none; border-color: var(--accent); }
+  .choices { display: flex; gap: 14px; }
+  .choice {
+    flex: 1; font-size: 1.4rem; font-weight: 700; padding: 22px 10px; border-radius: 14px;
+    border: 2px solid var(--line); background: #fff; color: var(--ink); cursor: pointer;
+  }
+  .choice:hover { border-color: var(--accent); }
+  .choice.sel { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .qnav { display: flex; justify-content: space-between; gap: 10px; margin-top: 22px; }
+  .err { color: var(--red); font-size: .9rem; min-height: 1.4em; margin-top: 6px; }
+
+  .btn {
+    border: none; border-radius: 10px; padding: 11px 22px; font-size: 1rem; font-weight: 700;
+    cursor: pointer; background: var(--accent); color: #fff;
+  }
+  .btn:hover { filter: brightness(1.08); }
+  .btn.ghost { background: transparent; color: var(--sub); border: 1px solid var(--line); }
+  .btn.big { font-size: 1.15rem; padding: 14px 28px; }
+  .btn.green { background: var(--ok); }
+  .btn:disabled { opacity: .4; cursor: default; }
+
+  /* ---------- 作文エリア ---------- */
+  .edit-layout { display: grid; grid-template-columns: 1fr 340px; gap: 20px; align-items: start; }
+  .panel {
+    background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px;
+  }
+  .panel h2 { font-size: 1.05rem; margin: 0 0 6px; }
+  .howto { font-size: .9rem; color: var(--sub); margin: 0 0 12px; }
+  .howto b { color: var(--ink); }
+
+  .expr-panel { position: sticky; top: 12px; max-height: calc(100vh - 24px); overflow: auto; }
+  .expr-list { display: flex; flex-direction: column; gap: 8px; }
+  .chip {
+    text-align: left; font-size: 1rem; line-height: 1.5; padding: 9px 12px; border-radius: 10px;
+    border: 2px solid #cfdcec; background: #fff; color: var(--ink); cursor: pointer;
+  }
+  .chip:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-soft); }
+  .chip .slot {
+    display: inline-block; min-width: 2.2em; text-align: center; margin: 0 2px;
+    background: #eef1f5; border: 1px dashed #9aa6b8; border-radius: 4px; color: var(--sub); font-size: .85em;
+  }
+  .chip:disabled { opacity: .45; cursor: default; text-decoration: line-through; border-style: dashed; }
+  .chip:disabled::before { content: "✓ "; color: var(--ok); text-decoration: none; display: inline-block; }
+  .panel-tools { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+  .panel-tools .btn { font-size: .9rem; padding: 8px 14px; }
+
+  .step-title { font-size: 1.05rem; font-weight: 700; margin: 0 0 6px; }
+  .step-title .n {
+    display: inline-flex; align-items: center; justify-content: center; width: 1.6em; height: 1.6em;
+    border-radius: 50%; background: var(--accent); color: #fff; font-size: .85rem; margin-right: 6px;
+  }
+  .editor-wrap { position: relative; }
+  #editor {
+    background: var(--paper);
+    border: 2px solid var(--line); border-radius: 12px;
+    padding: 18px 22px; min-height: 360px;
+    font-family: "Klee One", "Hiragino Mincho ProN", "Yu Mincho", serif;
+    font-size: 1.25rem; line-height: 2.4;
+    outline: none; caret-color: var(--accent);
+    word-break: break-all;
+  }
+  #editor:focus { border-color: var(--accent); }
+  #editor p, #editor div { margin: 0 0 4px; text-indent: 1em; border-bottom: 1px dashed #ebe5d8; }
+  .seam {
+    text-decoration: underline solid var(--red);
+    text-decoration-thickness: 3px; text-underline-offset: 6px;
+    background: var(--red-soft); border-radius: 3px; cursor: pointer;
+  }
+  .marker {
+    position: absolute; width: 3px; background: var(--accent); border-radius: 2px;
+    pointer-events: none; animation: blink 1s steps(2) infinite;
+  }
+  .marker::after {
+    content: "ここに入る"; position: absolute; top: -22px; left: -26px; white-space: nowrap;
+    font-size: .7rem; background: var(--accent); color: #fff; padding: 0 6px; border-radius: 6px;
+    font-family: "Zen Maru Gothic", sans-serif;
+  }
+  @keyframes blink { 50% { opacity: .2; } }
+  .editor-foot { display: flex; justify-content: space-between; color: var(--sub); font-size: .9rem; margin-top: 6px; flex-wrap: wrap; gap: 6px; }
+  .editor-foot .seams-left { color: var(--red); font-weight: 700; }
+
+  .msg {
+    border-radius: 12px; padding: 12px 40px 12px 14px; margin-bottom: 12px; position: relative;
+    font-size: .98rem;
+  }
+  .msg.warn { background: var(--red-soft); border: 2px solid #f3b4b2; }
+  .msg.info { background: var(--accent-soft); border: 2px solid #bcd3ea; }
+  .msg.caution { background: var(--warn-soft); border: 2px solid #f1d58c; }
+  .msg .close {
+    position: absolute; right: 8px; top: 6px; border: none; background: none; font-size: 1.3rem;
+    cursor: pointer; color: var(--sub);
+  }
+  .msg .ex { display: block; margin-top: 4px; font-family: "Klee One", serif; }
+  .msg .ex .bad { color: var(--red); text-decoration: line-through; }
+  .msg .ex .good { color: var(--ok); font-weight: 600; }
+
+  .finish { margin-top: 18px; }
+  .finish ul { margin: 6px 0 14px; padding-left: 1.2em; font-size: .95rem; }
+
+  .pop {
+    position: absolute; z-index: 20; width: min(320px, 90vw);
+    background: #fff; border: 2px solid #f3b4b2; border-radius: 12px; padding: 12px 14px;
+    box-shadow: 0 6px 20px rgba(0,0,0,.12); font-size: .95rem;
+  }
+  .pop .btns { display: flex; gap: 8px; margin-top: 10px; }
+  .pop .btn { font-size: .9rem; padding: 7px 14px; }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
+    background: var(--ink); color: #fff; padding: 10px 18px; border-radius: 999px; font-size: .95rem;
+    z-index: 50; max-width: 90vw; text-align: center;
+  }
+
+  /* ---------- 画像モーダル ---------- */
+  .modal {
+    position: fixed; inset: 0; background: rgba(20,25,40,.6); z-index: 100;
+    display: flex; align-items: center; justify-content: center; padding: 16px;
+  }
+  .modal-box {
+    background: var(--paper); border-radius: 16px; padding: 18px; max-width: 760px; width: 100%;
+    max-height: 92vh; overflow: auto; text-align: center;
+  }
+  .modal-box img { width: 100%; border: 1px solid var(--line); border-radius: 6px; }
+  .modal-box .btns { display: flex; gap: 10px; justify-content: center; margin-top: 12px; flex-wrap: wrap; }
+  .modal-box p { font-size: .9rem; color: var(--sub); margin: 8px 0 0; }
+
+  footer { text-align: center; color: var(--sub); font-size: .8rem; padding-bottom: 20px; }
+  footer button { background: none; border: none; color: var(--sub); text-decoration: underline; cursor: pointer; font-size: .8rem; }
+
+  @media (max-width: 820px) {
+    .edit-layout { grid-template-columns: 1fr; }
+    .expr-panel {
+      position: sticky; top: auto; bottom: 0; z-index: 10; order: 2;
+      max-height: 36vh; border-radius: 14px 14px 0 0; box-shadow: 0 -4px 16px rgba(0,0,0,.08);
+      padding: 10px 12px;
+    }
+    .expr-panel .howto { display: none; }
+    .expr-panel .step-title { font-size: .95rem; margin-bottom: 6px; }
+    .expr-list { flex-direction: row; flex-wrap: wrap; gap: 6px; }
+    .chip { font-size: .88rem; padding: 4px 9px; }
+    .chip:disabled { display: none; }
+    .panel-tools { margin-top: 8px; }
+    .panel-tools .btn { font-size: .8rem; padding: 5px 10px; }
+    #editor { font-size: 1.1rem; padding: 14px 16px; }
+    .qlabel { font-size: 1.15rem; }
+    .qcard { padding: 22px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head-inner">
+    <h1>作文メーカー<small>子どもとSNS</small></h1>
+    <ol class="steps" id="steps">
+      <li>1 しつもんに答える</li>
+      <li>2 答えをならべる</li>
+      <li>3 表現を入れる</li>
+      <li>4 なおして完成</li>
+    </ol>
+  </div>
+</header>
+
+<main>
+  <!-- ① 一問一答 -->
+  <section id="screenQ">
+    <div class="qcard">
+      <div class="qprogress" id="qprogress"></div>
+      <div class="qnum" id="qnum"></div>
+      <div class="qlabel" id="qlabel"></div>
+      <div class="qhint" id="qhint"></div>
+      <div id="qinput"></div>
+      <div class="err" id="qerr"></div>
+      <div class="qnav">
+        <button class="btn ghost" id="qback">← もどる</button>
+        <button class="btn" id="qnext">次へ →</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ②③④ 作文 -->
+  <section id="screenE" hidden>
+    <div class="edit-layout">
+      <div class="editor-col">
+        <p class="step-title"><span class="n">2</span>あなたの答えをならべました</p>
+        <p class="howto">右の<b>「表現リスト」</b>を使って、読む人にわかりやすい作文にしましょう。<br>
+          <b>① 作文の中の、表現を入れたい場所をクリック</b> → <b>② 使いたい表現をクリック</b></p>
+        <div id="msg" class="msg" hidden></div>
+        <div class="editor-wrap" id="editorWrap">
+          <div id="editor" contenteditable="true" spellcheck="false" autocapitalize="off" autocorrect="off"></div>
+          <div class="marker" id="marker" hidden></div>
+          <div class="pop" id="pop" hidden></div>
+        </div>
+        <div class="editor-foot">
+          <span id="count"></span>
+          <span id="seamsLeft"></span>
+        </div>
+
+        <div class="panel finish">
+          <p class="step-title"><span class="n">4</span>自分でなおして、完成させましょう</p>
+          <ul>
+            <li><b style="color:var(--red)">赤い線</b>のところは、つながり方を自分でなおします。なおしたら、赤い線をクリックして「なおした」をおします。</li>
+            <li>いらない言葉（もう使った「賛成」「反対」など）はけしましょう。</li>
+            <li>文章は、作文の中で自由に書きかえられます。</li>
+          </ul>
+          <button class="btn big green" id="exportBtn">完成！ 画像にする</button>
+        </div>
+      </div>
+
+      <aside class="panel expr-panel" id="exprPanel">
+        <p class="step-title"><span class="n">3</span>表現リスト</p>
+        <p class="howto">先に作文の中をクリックしてから、えらびましょう。<span class="slot-legend">［～］には、あなたの文が入ります。</span></p>
+        <div class="expr-list" id="exprList"></div>
+        <div class="panel-tools">
+          <button class="btn ghost" id="undoBtn">↶ 1つもどす</button>
+          <button class="btn ghost" id="backToQ">しつもんにもどる</button>
+        </div>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><button id="resetBtn">さいしょからやりなおす</button></footer>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal-box">
+    <img id="outImg" alt="完成した作文">
+    <p>うまく保存できないときは、画像を長おし（右クリック）して保存してください。</p>
+    <div class="btns">
+      <a class="btn green" id="dlLink" download="sakubun.png">画像を保存する</a>
+      <button class="btn ghost" id="closeModal">作文にもどる</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const STORE_KEY = 'sakubun-maker-sns-v1';
+
+  const EXPRS = [
+    'わたしは、子どもがSNSを利用することに【1の回答】だ。',
+    '理由は３つある。',
+    '1つ目は～ことだ。',
+    '2つ目は～ことだ。',
+    '3つ目は～ことだ。',
+    '一方、',
+    '～という意見の人もいる。',
+    'しかし、わたしは～と思う。',
+    '以上のことから、わたしは子どもがSNSを利用することに【1の回答】だ。'
+  ];
+
+  const HINTS = [
+    { test: /ことだ。$/, word: 'ことだ', bad: '目が悪くなります。ことだ。', good: '目が悪くなることだ。' },
+    { test: /という意見の人もいる。$/, word: 'という', bad: '便利です。という意見', good: '便利だという意見' },
+    { test: /と思う。$/, word: 'と思う', bad: '大切です。と思う。', good: '大切だと思う。' }
+  ];
+
+  // vals[0]=名前, vals[1..6]=しつもん1〜6の答え
+  let state = { screen: 'q', qi: 0, vals: ['', '', '', '', '', '', ''], order: null, used: [], html: '' };
+  try {
+    const s = JSON.parse(localStorage.getItem(STORE_KEY));
+    if (s && Array.isArray(s.vals)) state = Object.assign(state, s);
+  } catch (e) {}
+  if (!Array.isArray(state.order) || state.order.length !== EXPRS.length) {
+    state.order = EXPRS.map((_, i) => i);
+    for (let i = state.order.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [state.order[i], state.order[j]] = [state.order[j], state.order[i]];
+    }
+  }
+
+  const $ = id => document.getElementById(id);
+  const editor = $('editor');
+  try { document.execCommand('defaultParagraphSeparator', false, 'p'); } catch (e) {}
+
+  function save() {
+    if (state.screen === 'e') state.html = editor.innerHTML;
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch (e) {}
+  }
+
+  const a1 = () => state.vals[1];
+  const opp = () => (a1() === '賛成' ? '反対' : a1() === '反対' ? '賛成' : '');
+  const trimEnd = s => s.trim().replace(/[。．.！!？?]+$/, '');
+  const withPeriod = s => {
+    s = s.trim().replace(/\s*\n+\s*/g, '');
+    return /[。！？!?]$/.test(s) ? s : s + '。';
+  };
+  const esc = s => s.replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const fill = s => s.split('【1の回答】').join(a1());
+
+  /* ================= ① 一問一答 ================= */
+  const QUESTIONS = [
+    { type: 'text', label: () => 'あなたの名前を書いてください。', short: true },
+    { type: 'choice', label: () => 'あなたは、子どもがSNSを利用することに賛成ですか？反対ですか？' },
+    { type: 'text', label: () => `${esc(a1())}の理由は何ですか？<br>1つ目の理由を書きましょう。`, hint: '1つの文で書きましょう。' },
+    { type: 'text', label: () => '2つ目の理由を書きましょう。', hint: '1つの文で書きましょう。' },
+    { type: 'text', label: () => '3つ目の理由を書きましょう。', hint: '1つの文で書きましょう。' },
+    { type: 'text', label: () => `${esc(opp())}の人は、どんな理由で${esc(opp())}していると思いますか？` },
+    { type: 'text', label: () => `<span class="quote">「${esc(trimEnd(state.vals[5]))}」</span>という意見について、あなたはどう思いますか？` }
+  ];
+
+  function renderSteps() {
+    const lis = $('steps').children;
+    let active = 0;
+    if (state.screen === 'e') active = state.used.length < EXPRS.length ? 2 : 3;
+    for (let i = 0; i < lis.length; i++) {
+      lis[i].className = i < active ? 'done' : i === active ? 'active' : '';
+    }
+  }
+
+  function renderQ() {
+    const qi = state.qi, q = QUESTIONS[qi];
+    $('qprogress').innerHTML = QUESTIONS.map((_, i) => `<span class="${i <= qi ? 'on' : ''}"></span>`).join('');
+    $('qnum').textContent = qi === 0 ? 'はじめに' : `しつもん ${qi} / 6`;
+    $('qlabel').innerHTML = q.label();
+    $('qhint').textContent = q.hint || '';
+    $('qerr').textContent = '';
+    $('qback').style.visibility = qi === 0 ? 'hidden' : 'visible';
+    $('qnext').textContent = qi === QUESTIONS.length - 1 ? '答えをならべる →' : '次へ →';
+
+    const box = $('qinput');
+    if (q.type === 'choice') {
+      box.innerHTML = `<div class="choices">${['賛成', '反対'].map(o =>
+        `<button type="button" class="choice${state.vals[qi] === o ? ' sel' : ''}" data-v="${o}">${o}</button>`).join('')}</div>`;
+      box.querySelectorAll('.choice').forEach(b => b.onclick = () => {
+        state.vals[qi] = b.dataset.v; save(); renderQ();
+      });
+    } else if (q.short) {
+      box.innerHTML = `<input type="text" id="qtext" autocomplete="off" maxlength="30">`;
+      $('qtext').value = state.vals[qi];
+    } else {
+      box.innerHTML = `<textarea id="qtext" rows="3"></textarea>`;
+      $('qtext').value = state.vals[qi];
+    }
+    const t = $('qtext');
+    if (t) {
+      t.oninput = () => { state.vals[qi] = t.value; save(); };
+      t.onkeydown = e => {
+        if (e.key === 'Enter' && (q.short || e.ctrlKey || e.metaKey) && !e.isComposing) { e.preventDefault(); nextQ(); }
+      };
+      setTimeout(() => t.focus(), 0);
+    }
+    renderSteps();
+  }
+
+  function nextQ() {
+    const qi = state.qi, v = (state.vals[qi] || '').trim();
+    if (!v) {
+      $('qerr').textContent = QUESTIONS[qi].type === 'choice' ? 'どちらかをえらんでください。' : '答えを書いてください。';
+      return;
+    }
+    if (qi < QUESTIONS.length - 1) { state.qi++; save(); renderQ(); window.scrollTo(0, 0); return; }
+    buildEssay();
+  }
+  $('qnext').onclick = nextQ;
+  $('qback').onclick = () => { if (state.qi > 0) { state.qi--; save(); renderQ(); } };
+
+  /* ================= ② 答えをならべる ================= */
+  function buildEssay() {
+    if (state.html && !confirm('いま作っている作文は消えて、答えをもう一度ならべなおします。いいですか？')) return;
+    const lines = [state.vals[1].trim()].concat(state.vals.slice(2).map(withPeriod));
+    editor.innerHTML = lines.map(l => `<p>${esc(l)}</p>`).join('');
+    state.used = [];
+    undoStack.length = 0;
+    savedRange = null;
+    state.screen = 'e';
+    save();
+    showScreen();
+    showMsg('info', 'あなたの答えが、じゅんばんにならびました。<br>次は、作文の中をクリックしてから、<b>表現リスト</b>の表現をえらんで入れましょう。');
+  }
+
+  function showScreen() {
+    const e = state.screen === 'e';
+    $('screenQ').hidden = e;
+    $('screenE').hidden = !e;
+    if (e) {
+      if (!editor.innerHTML && state.html) editor.innerHTML = state.html;
+      renderExprs();
+      updateCounts();
+    } else {
+      renderQ();
+    }
+    renderSteps();
+    window.scrollTo(0, 0);
+  }
+
+  $('backToQ').onclick = () => {
+    state.screen = 'q'; state.qi = 1; save(); hideMarker(); showScreen();
+  };
+
+  /* ================= ③ 表現リスト ================= */
+  function renderExprs() {
+    const list = $('exprList');
+    list.innerHTML = '';
+    state.order.forEach(i => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'chip';
+      b.disabled = state.used.includes(i);
+      b.innerHTML = esc(fill(EXPRS[i])).replace('～', '<span class="slot">～</span>');
+      b.addEventListener('pointerdown', e => e.preventDefault());
+      b.addEventListener('mousedown', e => e.preventDefault());
+      b.onclick = () => insertExpr(i);
+      list.appendChild(b);
+    });
+    renderSteps();
+  }
+
+  // 作文中のカーソル位置を覚えておく
+  let savedRange = null;
+  document.addEventListener('selectionchange', () => {
+    const sel = getSelection();
+    if (!sel.rangeCount) return;
+    const r = sel.getRangeAt(0);
+    if (editor.contains(r.startContainer)) {
+      savedRange = r.cloneRange();
+      hideMarker();
+    }
+  });
+  editor.addEventListener('blur', () => setTimeout(showMarker, 0));
+  editor.addEventListener('focus', hideMarker);
+  window.addEventListener('resize', () => { if (document.activeElement !== editor) showMarker(); });
+
+  function showMarker() {
+    const m = $('marker');
+    if (!savedRange || state.screen !== 'e' || !editor.contains(savedRange.startContainer)) { m.hidden = true; return; }
+    const r = savedRange.cloneRange(); r.collapse(true);
+    let rect = r.getClientRects()[0];
+    if (!rect) {
+      const n = r.startContainer.nodeType === 1 ? (r.startContainer.childNodes[r.startOffset] || r.startContainer) : r.startContainer.parentNode;
+      if (n && n.getBoundingClientRect) rect = n.getBoundingClientRect();
+    }
+    if (!rect || (!rect.height && !rect.width)) { m.hidden = true; return; }
+    const wrap = $('editorWrap').getBoundingClientRect();
+    const h = Math.max(rect.height, 24);
+    m.style.left = (rect.left - wrap.left - 1) + 'px';
+    m.style.top = (rect.top - wrap.top + (rect.height - h) / 2) + 'px';
+    m.style.height = h + 'px';
+    m.hidden = false;
+  }
+  function hideMarker() { $('marker').hidden = true; }
+
+  function topBlock(node) {
+    let n = node;
+    while (n && n.parentNode !== editor) n = n.parentNode;
+    return n;
+  }
+
+  // カーソル位置 → { 段落, 段落の中の文字の位置 }
+  function locate(node, off) {
+    if (node === editor) {
+      const kids = editor.childNodes;
+      if (!kids.length) { const p = document.createElement('p'); editor.appendChild(p); return { p, offset: 0 }; }
+      if (off < kids.length) node = kids[off], off = 0;
+      else { node = kids[kids.length - 1]; off = node.nodeType === 3 ? node.data.length : node.childNodes.length; }
+    }
+    let blk = topBlock(node);
+    if (!blk) return null;
+    if (blk.nodeType === 3 || !/^(P|DIV)$/.test(blk.tagName)) {
+      const p = document.createElement('p');
+      editor.insertBefore(p, blk);
+      p.appendChild(blk);
+      blk = p;
+    }
+    const r = document.createRange();
+    r.setStart(blk, 0);
+    r.setEnd(node, off);
+    return { p: blk, offset: r.toString().length };
+  }
+
+  // 段落 ⇔ { text, seams:[{s,e,hint}] }
+  function serialize(p) {
+    let text = '';
+    const seams = [];
+    (function walk(n) {
+      for (const c of n.childNodes) {
+        if (c.nodeType === 3) text += c.data;
+        else if (c.nodeType === 1 && c.tagName !== 'BR') {
+          if (c.classList.contains('seam')) {
+            const s = text.length;
+            walk(c);
+            if (text.length > s) seams.push({ s, e: text.length, hint: c.dataset.hint || '' });
+          } else walk(c);
+        }
+      }
+    })(p);
+    return { text, seams };
+  }
+
+  function render(p, m) {
+    const list = m.seams.filter(x => x.e > x.s).sort((a, b) => a.s - b.s);
+    const merged = [];
+    for (const x of list) {
+      const last = merged[merged.length - 1];
+      if (last && x.s < last.e) { last.e = Math.max(last.e, x.e); last.hint = x.hint || last.hint; }
+      else merged.push(Object.assign({}, x));
+    }
+    p.textContent = '';
+    let pos = 0;
+    for (const x of merged) {
+      if (x.s > pos) p.appendChild(document.createTextNode(m.text.slice(pos, x.s)));
+      const sp = document.createElement('span');
+      sp.className = 'seam';
+      sp.dataset.hint = x.hint;
+      sp.textContent = m.text.slice(x.s, x.e);
+      p.appendChild(sp);
+      pos = x.e;
+    }
+    if (pos < m.text.length) p.appendChild(document.createTextNode(m.text.slice(pos)));
+    if (!m.text.length) p.appendChild(document.createElement('br'));
+  }
+
+  function insertAt(m, pos, str) {
+    const L = str.length;
+    m.text = m.text.slice(0, pos) + str + m.text.slice(pos);
+    m.seams.forEach(x => {
+      if (x.s >= pos) { x.s += L; x.e += L; }
+      else if (x.e > pos) x.e += L;
+    });
+  }
+
+  const END = /[。！？!?]/;
+  // 「前～後」の表現を、カーソルの後ろの文にかぶせる
+  function wrapSentence(m, c, pre, suf, hint) {
+    const T = m.text;
+    let end;
+    const rel = T.slice(c).search(END);
+    end = rel < 0 ? T.length : c + rel + 1;
+    if (!T.slice(c, end).trim()) {
+      // 文のおわりをクリックしたときは、その文をつかう
+      end = c;
+      while (end > 0 && /\s/.test(T[end - 1])) end--;
+      let i = end - 2;
+      while (i >= 0 && !END.test(T[i])) i--;
+      c = i + 1;
+    }
+    while (c < end && /\s/.test(T[c])) c++;
+    while (end > c && /\s/.test(T[end - 1])) end--;
+    if (end <= c) return null;
+
+    const target = T.slice(c, end);
+    const preStr = pre && !/[、，。]$/.test(pre) ? pre + '、' : pre;
+    const em = target.match(/(?:ませんでした|でしょう|ました|ません|でした|ます|です)?[。！？!?]?$/);
+    let k = em[0].length;
+    if (k <= 1) k = Math.min(target.length, k + 1);
+
+    insertAt(m, end, suf);
+    insertAt(m, c, preStr);
+    const s = c + preStr.length + target.length - k;
+    const e = s + k + suf.length;
+    m.seams.push({ s, e, hint });
+    return e;
+  }
+
+  function setCaret(p, off) {
+    const w = document.createTreeWalker(p, NodeFilter.SHOW_TEXT);
+    let n, acc = 0, last = null;
+    const r = document.createRange();
+    while ((n = w.nextNode())) {
+      last = n;
+      if (acc + n.data.length >= off) { r.setStart(n, off - acc); break; }
+      acc += n.data.length;
+    }
+    if (!r.startContainer || r.startContainer === document) {
+      if (last) r.setStart(last, last.data.length); else r.setStart(p, 0);
+    }
+    r.collapse(true);
+    savedRange = r.cloneRange();
+    if (document.activeElement === editor) {
+      const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+    } else {
+      showMarker();
+    }
+  }
+
+  const undoStack = [];
+  function pushUndo() {
+    undoStack.push({ html: editor.innerHTML, used: state.used.slice() });
+    if (undoStack.length > 30) undoStack.shift();
+  }
+  $('undoBtn').onclick = () => {
+    const u = undoStack.pop();
+    if (!u) { toast('もどせるものがありません。'); return; }
+    editor.innerHTML = u.html;
+    state.used = u.used;
+    savedRange = null;
+    hideMarker(); hidePop(); hideMsg();
+    renderExprs(); updateCounts(); save();
+  };
+
+  function insertExpr(i) {
+    hidePop();
+    if (!savedRange || !editor.contains(savedRange.startContainer)) {
+      toast('先に、作文の中の「表現を入れたい場所」をクリックしてください。');
+      return;
+    }
+    const node = savedRange.startContainer, off = savedRange.startOffset;
+    pushUndo();
+    const loc = locate(node, off);
+    if (!loc) { undoStack.pop(); return; }
+    const m = serialize(loc.p);
+    const expr = fill(EXPRS[i]);
+    let caret;
+    if (expr.includes('～')) {
+      const [pre, suf] = expr.split('～');
+      const h = HINTS.find(x => x.test.test(suf));
+      caret = wrapSentence(m, loc.offset, pre, suf, h ? h.word : '');
+      if (caret == null) {
+        undoStack.pop();
+        toast('「～」に入れる文がありません。文の前をクリックしてから、えらんでください。');
+        return;
+      }
+      render(loc.p, m);
+      setCaret(loc.p, caret);
+      showMsg('warn', hintHtml(h));
+    } else {
+      insertAt(m, loc.offset, expr);
+      render(loc.p, m);
+      setCaret(loc.p, loc.offset + expr.length);
+      toast('「' + expr + '」を入れました。');
+    }
+    state.used.push(i);
+    renderExprs();
+    updateCounts();
+    save();
+  }
+
+  function hintHtml(h) {
+    let s = '<b>⚠ 赤い線のところの形を変えましょう。</b><br>表現と、あなたの文のつながり方がおかしくなっています。';
+    if (h) {
+      s += `<br>「${h.word}」の前は、<b>ふつう形</b>にします。「ます・です」や「。」はけしましょう。` +
+        `<span class="ex">れい：<span class="bad">${esc(h.bad)}</span> → <span class="good">${esc(h.good)}</span></span>`;
+    }
+    s += '<br><small>なおしたら、赤い線をクリックして「なおした」をおしてください。</small>';
+    return s;
+  }
+
+  /* ================= メッセージ ================= */
+  function showMsg(kind, html) {
+    const box = $('msg');
+    box.className = 'msg ' + kind;
+    box.innerHTML = html + '<button class="close" aria-label="とじる">×</button>';
+    box.hidden = false;
+    box.querySelector('.close').onclick = hideMsg;
+  }
+  function hideMsg() { $('msg').hidden = true; }
+
+  let toastTimer;
+  function toast(text) {
+    let t = document.querySelector('.toast');
+    if (!t) { t = document.createElement('div'); t.className = 'toast'; document.body.appendChild(t); }
+    t.textContent = text;
+    t.hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { t.hidden = true; }, 2800);
+  }
+
+  /* ================= ④ なおす ================= */
+  let popTarget = null;
+  editor.addEventListener('click', e => {
+    const sp = e.target.closest && e.target.closest('.seam');
+    if (!sp) { hidePop(); return; }
+    popTarget = sp;
+    const pop = $('pop');
+    const h = HINTS.find(x => x.word === sp.dataset.hint);
+    pop.innerHTML = (h
+      ? `「${h.word}」の前の形をなおしましょう。<br><span style="font-family:'Klee One',serif">れい：<s style="color:var(--red)">${esc(h.bad)}</s> → <b style="color:var(--ok)">${esc(h.good)}</b></span>`
+      : 'つながり方をなおしましょう。') +
+      '<div class="btns"><button class="btn green" id="fixedBtn">なおした！</button><button class="btn ghost" id="laterBtn">あとで</button></div>';
+    const wrap = $('editorWrap').getBoundingClientRect();
+    const rect = sp.getBoundingClientRect();
+    pop.hidden = false;
+    const left = Math.min(Math.max(0, rect.left - wrap.left), wrap.width - pop.offsetWidth);
+    pop.style.left = Math.max(0, left) + 'px';
+    pop.style.top = (rect.bottom - wrap.top + 8) + 'px';
+    $('fixedBtn').onclick = () => {
+      if (popTarget && popTarget.parentNode) {
+        const p = topBlock(popTarget);
+        popTarget.replaceWith(document.createTextNode(popTarget.textContent));
+        if (p && p.normalize) p.normalize();
+      }
+      hidePop(); updateCounts(); save();
+      if (!editor.querySelector('.seam')) hideMsg();
+    };
+    $('laterBtn').onclick = hidePop;
+  });
+  function hidePop() { $('pop').hidden = true; popTarget = null; }
+
+  editor.addEventListener('input', () => {
+    editor.querySelectorAll('.seam').forEach(s => { if (!s.textContent) s.remove(); });
+    hidePop();
+    updateCounts();
+    save();
+  });
+  editor.addEventListener('paste', e => {
+    e.preventDefault();
+    const text = (e.clipboardData || window.clipboardData).getData('text/plain');
+    document.execCommand('insertText', false, text);
+  });
+  editor.addEventListener('drop', e => e.preventDefault());
+
+  function essayParagraphs() {
+    return Array.from(editor.childNodes)
+      .map(n => (n.textContent || '').replace(/\s+/g, ' ').trim())
+      .filter(Boolean);
+  }
+  function countChars(paras) { return paras.join('').replace(/\s/g, '').length; }
+
+  function updateCounts() {
+    $('count').textContent = `${countChars(essayParagraphs())} 字`;
+    const n = editor.querySelectorAll('.seam').length;
+    $('seamsLeft').innerHTML = n ? `<span class="seams-left">赤い線：あと ${n} か所</span>` : '';
+  }
+
+  /* ================= 画像にする ================= */
+  $('exportBtn').onclick = async () => {
+    hidePop();
+    const n = editor.querySelectorAll('.seam').length;
+    if (n && !confirm(`赤い線が、まだ ${n} か所あります。\nこのまま画像にしますか？`)) return;
+    const unused = EXPRS.length - state.used.length;
+    if (unused && !n && !confirm(`まだ使っていない表現が ${unused} こあります。\nこのまま画像にしますか？`)) return;
+    const paras = essayParagraphs();
+    if (!paras.length) { toast('作文が空です。'); return; }
+    const url = await drawEssay(paras);
+    $('outImg').src = url;
+    const dl = $('dlLink');
+    dl.href = url;
+    dl.download = `作文_${(state.vals[0] || '').trim() || 'なまえ'}.png`;
+    $('modal').hidden = false;
+  };
+  $('closeModal').onclick = () => { $('modal').hidden = true; };
+
+  async function drawEssay(paras) {
+    const title = '子どものSNS利用について';
+    const name = (state.vals[0] || '').trim();
+    const W = 1240, M = 100, FS = 36, LH = 76;
+    const bodyFont = `400 ${FS}px "Klee One", "Hiragino Mincho ProN", "Yu Mincho", serif`;
+    const titleFont = `600 52px "Klee One", "Hiragino Mincho ProN", "Yu Mincho", serif`;
+    const nameFont = `400 32px "Klee One", "Hiragino Mincho ProN", "Yu Mincho", serif`;
+    const all = title + name + paras.join('') + '名前：字（）0123456789';
+    try {
+      await Promise.all([
+        document.fonts.load(bodyFont, all),
+        document.fonts.load(titleFont, title),
+        document.fonts.load(nameFont, all)
+      ]);
+    } catch (e) {}
+
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    ctx.font = bodyFont;
+    const maxW = W - M * 2;
+    const lines = [];
+    paras.forEach(p => {
+      wrapText(ctx, '　' + p, maxW).forEach(l => lines.push(l));
+    });
+
+    const headH = 250;
+    const H = Math.max(Math.round(W * 1.414), headH + lines.length * LH + 160);
+    canvas.width = W;
+    canvas.height = H;
+
+    ctx.fillStyle = '#fffdf8';
+    ctx.fillRect(0, 0, W, H);
+    ctx.strokeStyle = '#d8d0bf';
+    ctx.lineWidth = 2;
+    ctx.strokeRect(40, 40, W - 80, H - 80);
+
+    ctx.fillStyle = '#23304a';
+    ctx.textBaseline = 'alphabetic';
+    ctx.font = titleFont;
+    ctx.textAlign = 'center';
+    ctx.fillText(title, W / 2, 150);
+    ctx.font = nameFont;
+    ctx.textAlign = 'right';
+    ctx.fillText(`名前：${name}`, W - M, 215);
+    ctx.textAlign = 'left';
+
+    const totalLines = Math.floor((H - headH - 120) / LH);
+    ctx.strokeStyle = '#c9d6e6';
+    ctx.lineWidth = 1.5;
+    for (let i = 0; i <= totalLines; i++) {
+      const y = headH + i * LH + 0.5;
+      ctx.beginPath(); ctx.moveTo(M, y); ctx.lineTo(W - M, y); ctx.stroke();
+    }
+    ctx.fillStyle = '#23304a';
+    ctx.font = bodyFont;
+    lines.forEach((l, i) => ctx.fillText(l, M, headH + (i + 1) * LH - 20));
+
+    ctx.font = `400 26px "Zen Maru Gothic", sans-serif`;
+    ctx.fillStyle = '#6b7385';
+    ctx.textAlign = 'right';
+    ctx.fillText(`（${countChars(paras)}字）`, W - M, H - 70);
+
+    return canvas.toDataURL('image/png');
+  }
+
+  function wrapText(ctx, text, maxW) {
+    const lines = [];
+    let line = '';
+    for (const ch of Array.from(text)) {
+      const test = line + ch;
+      if (line && ctx.measureText(test).width > maxW) {
+        if (/[、。，．！？」』）)!?]/.test(ch)) { lines.push(test); line = ''; continue; }
+        lines.push(line);
+        line = ch;
+      } else line = test;
+    }
+    if (line) lines.push(line);
+    return lines;
+  }
+
+  /* ================= リセット ================= */
+  $('resetBtn').onclick = () => {
+    if (!confirm('答えも作文も、ぜんぶ消えます。さいしょからやりなおしますか？')) return;
+    try { localStorage.removeItem(STORE_KEY); } catch (e) {}
+    location.reload();
+  };
+
+  showScreen();
+})();
+</script>
+</body>
+</html>
