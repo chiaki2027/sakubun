@@ -340,7 +340,6 @@
         <div class="panel finish">
           <p class="step-title"><span class="n">4</span>読みなおして、完成させましょう</p>
           <ul>
-            <li>いらない言葉（もう使った「賛成」「反対」など）はけしましょう。</li>
             <li>作文の中は、自由に書きかえられます。</li>
             <li>お手本の設計図とくらべて、足りないところはないか見てみましょう。</li>
           </ul>
@@ -455,7 +454,7 @@
   ];
 
   const EXPRS = [
-    { t: 'わたしは、子どもがSNSを利用することに【1の回答】だ。' },
+    { t: 'わたしは、子どもがSNSを利用することに～だ。', stanceSlot: true },
     { t: '理由は３つある。' },
     { t: '1つ目は～ことだ。' },
     { t: '2つ目は～ことだ。' },
@@ -820,8 +819,24 @@
     const rng = targetSentence(T, loc.offset);
     if (!rng) { toast('「～」に入れる文がありません。文の前をクリックしてから、えらんでください。'); return; }
     const [pre, suf] = expr.split('～');
-    const preStr = pre && !/[、，。]$/.test(pre) ? pre + '、' : pre;
     const target = T.slice(rng.start, rng.end);
+
+    if (EXPRS[i].stanceSlot) {
+      const word = target.replace(/[。．.！!？?\s]+$/, '').replace(/(です|だ)$/, '');
+      if (word !== stance()) {
+        toast(`この表現は、1問目の答え「${stance()}」の前をクリックしてから入れましょう。`);
+        return;
+      }
+      pushUndo();
+      const sentence = pre + stance() + suf;
+      loc.p.textContent = T.slice(0, rng.start) + sentence + T.slice(rng.end);
+      setCaret(loc.p, rng.start + sentence.length);
+      toast(`「${stance()}」が文の中に入りました。`);
+      markUsed(i);
+      return;
+    }
+
+    const preStr = pre && !/[、，。]$/.test(pre) ? pre + '、' : pre;
     openJoin(preStr, target, suf, inner => {
       pushUndo();
       loc.p.textContent = T.slice(0, rng.start) + preStr + inner + suf + T.slice(rng.end);
