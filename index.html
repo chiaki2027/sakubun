@@ -29,6 +29,7 @@
     --r-concede: #efe3f8;  --r-concede-t: #7a3fa5;
     --r-rebut: #fbe0e6;    --r-rebut-t: #b02a4b;
     --r-sum: #d9e8fb;      --r-sum-t: #1f5ea8;
+    --serif: "Klee One", "Hiragino Mincho ProN", "Yu Mincho", serif;
   }
   * { box-sizing: border-box; }
   html, body { margin: 0; }
@@ -48,8 +49,7 @@
     display: block; font-size: .82em; font-weight: 400; color: var(--sub); line-height: 1.5;
     margin-top: 2px; font-family: "Segoe UI", "Nirmala UI", "Noto Sans Devanagari", "Helvetica Neue", Arial, sans-serif;
   }
-  .btn .tr, .choice .tr, .role-btn .tr, .steps .tr, .toast .tr { color: inherit; opacity: .8; font-size: .75em; }
-  .toast .tr { font-size: .85em; }
+  .btn .tr, .role-btn .tr, .steps .tr, .choice .tr { color: inherit; opacity: .8; font-size: .75em; }
 
   header { background: var(--paper); border-bottom: 1px solid var(--line); padding: 10px 16px; }
   .head-inner {
@@ -63,26 +63,25 @@
   .steps li.active { background: var(--accent); color: #fff; }
   .steps li.done { background: var(--accent-soft); color: var(--accent); }
   .langbar { max-width: 1100px; margin: 8px auto 0; display: flex; gap: 6px; align-items: center; flex-wrap: wrap; font-size: .8rem; color: var(--sub); }
-  .tg {
-    border: 1px solid var(--line); background: #fff; color: var(--ink); border-radius: 999px;
-    padding: 3px 12px; font-size: .85rem; cursor: pointer;
-  }
+  .tg { border: 1px solid var(--line); background: #fff; color: var(--ink); border-radius: 999px; padding: 3px 12px; font-size: .85rem; cursor: pointer; }
   .tg.on { background: var(--ink); border-color: var(--ink); color: #fff; }
   .tg[lang=ne] { font-family: "Nirmala UI", "Noto Sans Devanagari", sans-serif; }
 
   main { max-width: 1100px; margin: 0 auto; padding: 20px 16px 60px; }
+  body.model-active main { padding-bottom: 75vh; }
   [hidden] { display: none !important; }
 
   .card {
     max-width: 680px; margin: 10px auto 0;
     background: var(--paper); border: 1px solid var(--line); border-radius: 16px;
-    padding: 28px 24px; box-shadow: 0 2px 0 var(--line);
+    padding: 26px 24px; box-shadow: 0 2px 0 var(--line);
   }
   .card.wide { max-width: 860px; }
   .kicker { color: var(--accent); font-weight: 700; font-size: .95rem; }
-  .lead { font-size: 1.3rem; font-weight: 700; margin: 4px 0 14px; line-height: 1.9; }
+  .lead { font-size: 1.3rem; font-weight: 700; margin: 4px 0 12px; line-height: 1.9; }
   .lead .tr { font-size: .7em; }
-  .note { color: var(--sub); font-size: .92rem; margin: -6px 0 14px; }
+  .note { color: var(--sub); font-size: .92rem; margin: -4px 0 14px; }
+  .center { text-align: center; }
 
   .btn {
     border: none; border-radius: 10px; padding: 11px 22px; font-size: 1rem; font-weight: 700;
@@ -92,24 +91,8 @@
   .btn.ghost { background: transparent; color: var(--sub); border: 1px solid var(--line); }
   .btn.big { font-size: 1.15rem; padding: 14px 28px; }
   .btn.green { background: var(--ok); }
-  .btn:disabled { opacity: .4; cursor: default; }
 
-  /* ---------- ⓪ お手本 ---------- */
-  .model-essay {
-    font-family: "Klee One", "Hiragino Mincho ProN", "Yu Mincho", serif;
-    font-size: 1.15rem; line-height: 2.5;
-    background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 16px 20px; margin-bottom: 16px;
-  }
-  .model-essay p { margin: 0 0 6px; text-indent: 1em; }
-  .ms { border-radius: 4px; padding: 2px 0; transition: background .2s; }
-  .ms.cur { background: var(--hl); box-shadow: 0 0 0 2px #f0d468; }
-  .ms .tag {
-    display: inline-block; text-indent: 0; font-family: "Zen Maru Gothic", sans-serif; font-size: .7rem; font-weight: 700;
-    line-height: 1.5; padding: 0 6px; border-radius: 6px; margin-right: 4px; vertical-align: 2px; color: #fff;
-  }
-  .ms .tag rt { display: none; }
-  .ms .cn { font-weight: 600; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
-
+  /* 役わりの色 */
   .role-claim   { background: var(--r-claim); }   .role-claim .tag   { background: var(--r-claim-t); }
   .role-count   { background: var(--r-count); }   .role-count .tag   { background: var(--r-count-t); }
   .role-reason  { background: var(--r-reason); }  .role-reason .tag  { background: var(--r-reason-t); }
@@ -118,34 +101,60 @@
   .role-concede { background: var(--r-concede); } .role-concede .tag { background: var(--r-concede-t); }
   .role-rebut   { background: var(--r-rebut); }   .role-rebut .tag   { background: var(--r-rebut-t); }
   .role-sum     { background: var(--r-sum); }     .role-sum .tag     { background: var(--r-sum-t); }
+  .tag {
+    display: inline-block; text-indent: 0; font-family: "Zen Maru Gothic", sans-serif; font-size: .74rem; font-weight: 700;
+    line-height: 1.7; padding: 0 7px; border-radius: 6px; margin-right: 4px; vertical-align: 3px; color: #fff;
+  }
+  .tag .tr { display: inline; color: #fff; opacity: .9; margin-left: 4px; font-size: .92em; }
 
-  .role-q { font-weight: 700; margin: 0 0 8px; }
-  .roles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  /* ---------- ⓪ お手本 ---------- */
+  .paper {
+    font-family: var(--serif); font-size: 1.15rem; line-height: 2.6;
+    background: #fff; border: 1px solid var(--line); border-radius: 12px; padding: 16px 20px;
+  }
+  .paper p { margin: 0 0 6px; text-indent: 1em; }
+  .ms { border-radius: 4px; padding: 2px 0; scroll-margin-top: 26px; }
+  .ms.cur { background: var(--hl); box-shadow: 0 0 0 2px #f0d468; }
+  .cn { font-weight: 600; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
+
+  #roleBox {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 20;
+    background: var(--paper); border-top: 1px solid var(--line); box-shadow: 0 -4px 14px rgba(0,0,0,.08);
+    padding: 8px 16px 10px;
+  }
+  #roleBox .inner { max-width: 860px; margin: 0 auto; }
+  .role-head { font-size: .9rem; font-weight: 700; margin-bottom: 4px; }
+  .role-head .tr { display: inline; margin-left: 8px; }
+  .role-head .prog { color: var(--sub); font-weight: 500; margin-left: 10px; }
+  .roles { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; }
   .role-btn {
-    font-size: 1rem; font-weight: 700; padding: 8px 6px; border-radius: 10px; cursor: pointer;
-    border: 2px solid var(--line); background: #fff; color: var(--ink); line-height: 1.6;
+    font-size: .92rem; font-weight: 700; padding: 3px 2px; border-radius: 9px; cursor: pointer;
+    border: 2px solid var(--line); background: #fff; color: var(--ink); line-height: 1.5;
   }
   .role-btn:hover { border-color: var(--accent); }
   .role-btn.shake { animation: shake .35s; border-color: var(--red); }
   @keyframes shake { 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
-  .fb { border-radius: 10px; padding: 10px 14px; margin-top: 12px; font-size: .98rem; min-height: 1em; }
+  .fb { border-radius: 10px; padding: 8px 12px; margin-top: 10px; font-size: .95rem; }
   .fb.ok { background: var(--ok-soft); border: 2px solid #b5dcc3; }
   .fb.ng { background: var(--red-soft); border: 2px solid #f3b4b2; }
-  .model-progress { color: var(--sub); font-size: .9rem; margin-bottom: 6px; }
+  #roleFb { margin-top: 6px; padding: 4px 10px; font-size: .86rem; line-height: 1.6; }
 
-  .design { display: flex; flex-direction: column; gap: 6px; margin: 8px 0 18px; }
-  .design .blk { display: grid; grid-template-columns: 110px 1fr; gap: 10px; align-items: center; border-radius: 10px; padding: 8px 12px; }
-  .design .blk .rn { font-weight: 700; font-size: .9rem; }
-  .design .blk .ex { font-family: "Klee One", serif; font-weight: 600; }
-  .design .blk .why { font-size: .85rem; color: var(--sub); }
-  .design .indent { margin-left: 22px; }
-  .design .arrow { text-align: center; color: var(--sub); font-size: .8rem; line-height: 1; }
+  .shot {
+    margin: 16px 0; padding: 10px 14px; border: 2px solid var(--red); border-radius: 12px;
+    background: var(--red-soft); color: var(--red); font-weight: 700; font-size: 1.1rem; text-align: center;
+  }
+  .shot .tr { color: var(--red); opacity: .85; }
+  .structure .seg { border-radius: 4px; padding: 2px 0; }
+  .blank {
+    display: inline-block; min-width: 3em; text-align: center; text-indent: 0; line-height: 1.6;
+    background: #fff; border: 1px dashed #8d97a8; border-radius: 4px; color: var(--sub); margin: 0 2px;
+  }
 
   /* ---------- ① 質問 ---------- */
   .qprogress { display: flex; gap: 4px; margin-bottom: 18px; }
   .qprogress span { flex: 1; height: 6px; border-radius: 3px; background: #eee9df; }
   .qprogress span.on { background: var(--accent); }
-  .qlabel .quote { background: var(--accent-soft); padding: 0 4px; border-radius: 4px; }
+  .quote { background: var(--accent-soft); padding: 0 4px; border-radius: 4px; }
   textarea, input[type=text] {
     width: 100%; font: inherit; font-size: 1.1rem; color: var(--ink);
     border: 2px solid var(--line); border-radius: 10px; padding: 12px 14px; background: #fff; resize: vertical;
@@ -161,60 +170,26 @@
   .qnav { display: flex; justify-content: space-between; gap: 10px; margin-top: 22px; }
   .err { color: var(--red); font-size: .9rem; min-height: 1.4em; margin-top: 6px; }
 
-  /* ---------- ②③④ 作文 ---------- */
-  .edit-layout { display: grid; grid-template-columns: 1fr 340px; gap: 20px; align-items: start; }
-  .panel { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; }
-  .howto { font-size: .9rem; color: var(--sub); margin: 0 0 12px; }
-  .howto b { color: var(--ink); }
-  .expr-panel { position: sticky; top: 12px; max-height: calc(100vh - 24px); overflow: auto; }
-  .expr-list { display: flex; flex-direction: column; gap: 8px; }
-  .chip {
-    text-align: left; font-size: 1rem; line-height: 1.9; padding: 7px 12px; border-radius: 10px;
-    border: 2px solid #cfdcec; background: #fff; color: var(--ink); cursor: pointer;
+  /* ---------- ③ あてはめる ---------- */
+  .frame .seg { border-radius: 4px; padding: 2px 0; }
+  .slot { cursor: pointer; text-indent: 0; border-radius: 6px; }
+  .slot.empty {
+    display: inline-block; font-family: "Zen Maru Gothic", sans-serif; font-size: .8em; line-height: 1.7;
+    color: var(--accent); background: #fff; border: 2px dashed var(--accent); padding: 0 10px; margin: 0 2px;
+    animation: pulse 1.6s ease-in-out infinite;
   }
-  .chip:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-soft); }
-  .chip .slot {
-    display: inline-block; min-width: 2.2em; text-align: center; margin: 0 2px; line-height: 1.5;
-    background: #eef1f5; border: 1px dashed #9aa6b8; border-radius: 4px; color: var(--sub); font-size: .85em;
-  }
-  .chip .multi { font-size: .72rem; color: var(--sub); margin-left: 6px; }
-  .chip .multi .tr { display: inline; margin-left: 4px; }
-  .chip:disabled { opacity: .45; cursor: default; text-decoration: line-through; border-style: dashed; }
-  .chip:disabled::before { content: "✓ "; color: var(--ok); }
-  .panel-tools { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
-  .panel-tools .btn { font-size: .9rem; padding: 6px 14px; }
+  .slot.empty .tr { display: inline; margin-left: 4px; color: var(--accent); }
+  @keyframes pulse { 50% { box-shadow: 0 0 0 4px rgba(47,111,176,.15); } }
+  .slot.filled { background: #fff; padding: 2px 4px; text-decoration: underline dotted var(--sub); text-underline-offset: 5px; }
+  .slot:hover { outline: 2px solid var(--accent); }
+  .fill-foot { display: flex; justify-content: space-between; align-items: center; margin: 10px 0 16px; color: var(--sub); font-size: .95rem; flex-wrap: wrap; gap: 8px; }
+  .fill-foot .left { font-weight: 700; color: var(--accent); }
 
-  .step-title { font-size: 1.05rem; font-weight: 700; margin: 0 0 6px; display: flex; align-items: flex-start; gap: 6px; }
-  .step-title .n {
-    flex: none; display: inline-flex; align-items: center; justify-content: center; width: 1.6em; height: 1.6em; margin-top: .45em;
-    border-radius: 50%; background: var(--accent); color: #fff; font-size: .85rem;
-  }
-  .editor-wrap { position: relative; }
-  #editor {
-    background: var(--paper); border: 2px solid var(--line); border-radius: 12px;
-    padding: 18px 22px; min-height: 360px;
-    font-family: "Klee One", "Hiragino Mincho ProN", "Yu Mincho", serif;
-    font-size: 1.25rem; line-height: 2.4; outline: none; caret-color: var(--accent); word-break: break-all;
-  }
-  #editor:focus { border-color: var(--accent); }
-  #editor p, #editor div { margin: 0 0 4px; text-indent: 1em; border-bottom: 1px dashed #ebe5d8; }
-  .marker {
-    position: absolute; width: 3px; background: var(--accent); border-radius: 2px;
-    pointer-events: none; animation: blink 1s steps(2) infinite;
-  }
-  @keyframes blink { 50% { opacity: .2; } }
-  .editor-foot { display: flex; justify-content: space-between; color: var(--sub); font-size: .9rem; margin-top: 6px; gap: 6px; }
-  .msg { border-radius: 12px; padding: 12px 40px 12px 14px; margin-bottom: 12px; position: relative; font-size: .98rem; }
-  .msg.info { background: var(--accent-soft); border: 2px solid #bcd3ea; }
-  .msg .close { position: absolute; right: 8px; top: 6px; border: none; background: none; font-size: 1.3rem; cursor: pointer; color: var(--sub); }
-  .finish { margin-top: 18px; }
-  .finish ul { margin: 6px 0 14px; padding-left: 1.2em; font-size: .95rem; }
-
-  .toast {
-    position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
-    background: var(--ink); color: #fff; padding: 10px 18px; border-radius: 16px; font-size: .95rem;
-    z-index: 200; max-width: 90vw; text-align: center;
-  }
+  /* ---------- ④ 完成 ---------- */
+  .final { font-size: 1.25rem; line-height: 2.7; padding: 22px 26px; }
+  .final .ftitle { text-align: center; font-weight: 600; font-size: 1.35rem; text-indent: 0; margin-bottom: 0; }
+  .final .fname { text-align: right; text-indent: 0; font-size: 1rem; }
+  .row-btns { display: flex; justify-content: space-between; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
 
   /* ---------- モーダル ---------- */
   .modal {
@@ -222,25 +197,32 @@
     display: flex; align-items: center; justify-content: center; padding: 16px;
   }
   .modal-box { background: var(--paper); border-radius: 16px; padding: 20px; max-width: 760px; width: 100%; max-height: 92vh; overflow: auto; }
-  .center { text-align: center; }
   .modal-box img { width: 100%; border: 1px solid var(--line); border-radius: 6px; }
   .modal-box .btns { display: flex; gap: 10px; justify-content: center; margin-top: 14px; flex-wrap: wrap; }
   .modal-box .small { font-size: .9rem; color: var(--sub); margin: 8px 0 0; }
-
-  .join-title { font-size: 1.2rem; font-weight: 700; margin: 0 0 10px; }
-  .naive {
-    font-family: "Klee One", serif; font-size: 1.2rem; line-height: 2.2;
-    background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 10px 14px;
+  .m-title { font-size: 1.2rem; font-weight: 700; margin: 0 0 10px; }
+  .choose-slot { font-family: var(--serif); font-size: 1.1rem; line-height: 2.4; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 8px 12px; }
+  .choose-slot .here { background: var(--hl); border: 2px solid #f0d468; border-radius: 6px; padding: 0 12px; }
+  .choose-list { display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+  .ans {
+    text-align: left; font-family: var(--serif); font-size: 1.05rem; line-height: 1.7; padding: 8px 12px;
+    border: 2px solid #cfdcec; border-radius: 10px; background: #fff; color: var(--ink); cursor: pointer;
   }
+  .ans:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .ans.used { color: var(--sub); border-style: dashed; }
+  .ans.used::after { content: " ✓"; color: var(--ok); }
+  .ans.shake { animation: shake .35s; border-color: var(--red); }
+
+  .naive { font-family: var(--serif); font-size: 1.15rem; line-height: 2.2; background: #fff; border: 1px solid var(--line); border-radius: 10px; padding: 8px 14px; }
   .naive .bad { text-decoration: underline solid var(--red); text-decoration-thickness: 3px; text-underline-offset: 6px; background: var(--red-soft); border-radius: 3px; }
   .warn-line { color: var(--red); font-weight: 700; margin: 10px 0 4px; }
   .warn-line .tr { color: var(--red); opacity: .85; }
-  .join-ex { font-family: "Klee One", serif; margin-top: 4px; }
-  .join-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 12px 0 0; font-family: "Klee One", serif; font-size: 1.2rem; }
+  .join-ex { font-family: var(--serif); margin-top: 4px; }
+  .join-row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; margin: 12px 0 0; font-family: var(--serif); font-size: 1.15rem; }
   .join-row .fixed { background: #eef1f5; border-radius: 6px; padding: 4px 8px; color: var(--sub); }
-  .join-row input { flex: 1 1 260px; font-family: "Klee One", serif; font-size: 1.2rem; }
+  .join-row input { flex: 1 1 260px; font-family: var(--serif); font-size: 1.15rem; }
   .join-preview { margin-top: 10px; font-size: .9rem; color: var(--sub); }
-  .join-preview .val { font-family: "Klee One", serif; color: var(--ink); font-size: 1.05rem; }
+  .join-preview .val { font-family: var(--serif); color: var(--ink); font-size: 1.05rem; }
 
   footer { text-align: center; color: var(--sub); font-size: .8rem; padding-bottom: 20px; }
   footer button { background: none; border: none; color: var(--sub); text-decoration: underline; cursor: pointer; font-size: .8rem; }
@@ -248,33 +230,13 @@
   @media (max-width: 820px) {
     .steps .tr { display: none; }
     .steps li { font-size: .72rem; padding: 2px 8px; }
-    .edit-layout { grid-template-columns: 1fr; }
-    .expr-panel {
-      position: sticky; top: auto; bottom: 0; z-index: 10; order: 2;
-      max-height: 38vh; border-radius: 14px 14px 0 0; box-shadow: 0 -4px 16px rgba(0,0,0,.08); padding: 10px 12px;
-    }
-    .expr-panel .howto { display: none; }
-    .expr-panel .step-title { font-size: .95rem; margin-bottom: 6px; }
-    .expr-list { flex-direction: row; flex-wrap: wrap; gap: 6px; }
-    .chip { font-size: .88rem; padding: 3px 9px; }
-    .chip:disabled { display: none; }
-    .panel-tools { margin-top: 8px; }
-    .panel-tools .btn { font-size: .8rem; padding: 4px 10px; }
-    #editor { font-size: 1.1rem; padding: 14px 16px; }
     .lead { font-size: 1.15rem; }
-    .card { padding: 22px 16px; }
-    .roles { grid-template-columns: repeat(4, 1fr); gap: 6px; }
-    .role-btn { font-size: .85rem; padding: 6px 2px; }
-    #roleBox {
-      position: sticky; bottom: 0; z-index: 5; background: var(--paper);
-      margin: 0 -16px -22px; padding: 10px 12px 12px; border-top: 1px solid var(--line);
-      box-shadow: 0 -4px 12px rgba(0,0,0,.06);
-    }
-    #roleBox .role-q { margin-bottom: 6px; font-size: .95rem; }
-    #roleBox .fb { margin-top: 8px; font-size: .88rem; padding: 6px 10px; }
-    .model-essay { font-size: 1.05rem; padding: 12px 14px; }
-    .design .blk { grid-template-columns: 1fr; gap: 2px; }
-    .design .indent { margin-left: 12px; }
+    .card { padding: 20px 14px; }
+    .paper { font-size: 1.05rem; padding: 12px 12px; }
+    .roles { grid-template-columns: repeat(4, 1fr); gap: 5px; }
+    .role-btn { font-size: .82rem; padding: 2px 1px; }
+    #roleBox { padding: 6px 10px 8px; }
+    .final { font-size: 1.1rem; padding: 16px 14px; }
   }
 </style>
 </head>
@@ -299,34 +261,29 @@
 </header>
 
 <main>
-  <!-- ⓪ お手本の分解 -->
+  <!-- 1 お手本 -->
   <section id="screenM">
     <div class="card wide">
       <div class="kicker" data-t="m_kicker"></div>
       <div class="lead" data-t="m_lead"></div>
       <p class="note" data-t="m_note"></p>
-      <div id="modelEssay" class="model-essay"></div>
-      <div id="roleBox">
-        <div class="model-progress" id="modelProgress"></div>
-        <p class="role-q" data-t="m_q"></p>
-        <div class="roles" id="roles"></div>
-        <div class="fb" id="roleFb" hidden></div>
-      </div>
+      <div id="modelEssay" class="paper"></div>
       <div id="modelDone" hidden>
-        <p class="lead" style="margin-top:6px" data-t="m_done"></p>
+        <p class="lead" style="margin-top:20px" data-t="m_done"></p>
         <p class="note" data-t="m_done_note"></p>
-        <div class="design" id="designMain"></div>
+        <div class="paper structure" id="structure"></div>
+        <div class="shot" data-t="m_shot"></div>
         <div class="center"><button class="btn big" id="toQ" data-t="toQ"></button></div>
       </div>
     </div>
   </section>
 
-  <!-- ① 一問一答 -->
+  <!-- 2 一問一答 -->
   <section id="screenQ" hidden>
     <div class="card">
       <div class="qprogress" id="qprogress"></div>
       <div class="kicker" id="qnum"></div>
-      <div class="lead qlabel" id="qlabel"></div>
+      <div class="lead" id="qlabel"></div>
       <div class="note" id="qhint"></div>
       <div id="qinput"></div>
       <div class="err" id="qerr"></div>
@@ -337,52 +294,69 @@
     </div>
   </section>
 
-  <!-- ②③④ 作文 -->
-  <section id="screenE" hidden>
-    <div class="edit-layout">
-      <div class="editor-col">
-        <p class="step-title"><span class="n">2</span><span data-t="e_title2"></span></p>
-        <p class="howto" data-t="e_howto"></p>
-        <div id="msg" class="msg" hidden></div>
-        <div class="editor-wrap" id="editorWrap">
-          <div id="editor" contenteditable="true" spellcheck="false" autocapitalize="off" autocorrect="off"></div>
-          <div class="marker" id="marker" hidden></div>
-        </div>
-        <div class="editor-foot"><span id="count"></span></div>
-
-        <div class="panel finish">
-          <p class="step-title"><span class="n">4</span><span data-t="e_title4"></span></p>
-          <ul>
-            <li data-t="e_fin1"></li>
-            <li data-t="e_fin2"></li>
-          </ul>
-          <button class="btn big green" id="exportBtn" data-t="btn_export"></button>
-        </div>
+  <!-- 3 構成にあてはめる -->
+  <section id="screenF" hidden>
+    <div class="card wide">
+      <div class="lead" data-t="f_title"></div>
+      <p class="note" data-t="f_howto"></p>
+      <div class="paper frame" id="frame"></div>
+      <div class="fill-foot">
+        <span class="left" id="leftCount"></span>
+        <button class="btn ghost" id="backToQ" data-t="btn_backQ"></button>
       </div>
+      <div class="center"><button class="btn big green" id="toDone" data-t="f_done_btn" hidden></button></div>
+    </div>
+  </section>
 
-      <aside class="panel expr-panel" id="exprPanel">
-        <p class="step-title"><span class="n">3</span><span data-t="e_title3"></span></p>
-        <p class="howto" data-t="e_howto3"></p>
-        <div class="expr-list" id="exprList"></div>
-        <div class="panel-tools">
-          <button class="btn ghost" id="undoBtn" data-t="btn_undo"></button>
-          <button class="btn ghost" id="showDesign" data-t="btn_design"></button>
-          <button class="btn ghost" id="backToQ" data-t="btn_backQ"></button>
-        </div>
-      </aside>
+  <!-- 4 完成 -->
+  <section id="screenD" hidden>
+    <div class="card wide">
+      <div class="kicker" data-t="d_kicker"></div>
+      <div class="lead" data-t="d_lead"></div>
+      <div class="paper final" id="finalPaper"></div>
+      <div class="fill-foot"><span id="count"></span></div>
+      <div class="row-btns">
+        <button class="btn ghost" id="backToFill" data-t="d_back"></button>
+        <button class="btn ghost" id="exportBtn" data-t="d_image"></button>
+      </div>
     </div>
   </section>
 </main>
 
 <footer><button id="resetBtn" data-t="reset"></button></footer>
 
-<!-- つなぐ練習 -->
+<!-- 役わりボタン（画面の下に固定） -->
+<div id="roleBox" hidden>
+  <div class="inner">
+    <div class="role-head"><span data-t="m_q"></span><span class="prog" id="modelProgress"></span></div>
+    <div class="roles" id="roles"></div>
+    <div class="fb" id="roleFb" hidden></div>
+  </div>
+</div>
+
+<!-- 答えをえらぶ -->
+<div class="modal" id="chooseModal" hidden>
+  <div class="modal-box">
+    <p class="m-title" data-t="f_choose"></p>
+    <div class="choose-slot" id="chooseSlot"></div>
+    <div class="choose-list" id="chooseList"></div>
+    <div class="fb" id="chooseFb" hidden></div>
+    <div class="btns">
+      <button class="btn ghost" id="chooseFix" data-t="f_fix"></button>
+      <button class="btn ghost" id="chooseCancel" data-t="j_cancel"></button>
+    </div>
+  </div>
+</div>
+
+<!-- つなげてみよう -->
 <div class="modal" id="joinModal" hidden>
   <div class="modal-box">
-    <p class="join-title" data-t="j_title"></p>
-    <div data-t="j_result"></div>
-    <div class="naive" id="naive"></div>
-    <div class="warn-line" data-t="j_warn"></div>
+    <p class="m-title" data-t="j_title"></p>
+    <div id="joinNaiveBox">
+      <div data-t="j_result"></div>
+      <div class="naive" id="naive"></div>
+      <div class="warn-line" data-t="j_warn"></div>
+    </div>
     <div id="joinRule"></div>
     <div class="join-row">
       <span class="fixed" id="joinPre"></span>
@@ -398,30 +372,21 @@
   </div>
 </div>
 
-<!-- 設計図 -->
-<div class="modal" id="designModal" hidden>
-  <div class="modal-box">
-    <p class="join-title" data-t="btn_design"></p>
-    <div class="design" id="designSub"></div>
-    <div class="btns"><button class="btn" id="closeDesign" data-t="close"></button></div>
-  </div>
-</div>
-
 <!-- 画像 -->
-<div class="modal" id="modal" hidden>
+<div class="modal" id="imgModal" hidden>
   <div class="modal-box center">
     <img id="outImg" alt="完成した作文">
     <p class="small" data-t="i_hint"></p>
     <div class="btns">
       <a class="btn green" id="dlLink" download="sakubun.png" data-t="i_save"></a>
-      <button class="btn ghost" id="closeModal" data-t="i_back"></button>
+      <button class="btn ghost" id="closeImg" data-t="close"></button>
     </div>
   </div>
 </div>
 
 <script>
 (() => {
-  const STORE_KEY = 'sakubun-maker-sns-v2';
+  const STORE_KEY = 'sakubun-maker-sns-v3';
   const UI_KEY = 'sakubun-maker-ui';
   const $ = id => document.getElementById(id);
   const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -432,25 +397,28 @@
     subtitle: { ja: '{子|こ}どもとSNS' },
     step1: { ja: '1 お{手本|てほん}を{読|よ}む', en: '1 Read the model', ne: '1 नमुना पढ्नुहोस्' },
     step2: { ja: '2 しつもんに{答|こた}える', en: '2 Answer questions', ne: '2 प्रश्नको उत्तर दिनुहोस्' },
-    step3: { ja: '3 {表現|ひょうげん}を{入|い}れる', en: '3 Add expressions', ne: '3 अभिव्यक्ति थप्नुहोस्' },
-    step4: { ja: '4 なおして{完成|かんせい}', en: '4 Fix and finish', ne: '4 सच्याएर पूरा गर्नुहोस्' },
+    step3: { ja: '3 {構成|こうせい}にあてはめる', en: '3 Fit into the structure', ne: '3 संरचनामा मिलाउनुहोस्' },
+    step4: { ja: '4 {紙|かみ}に{書|か}く', en: '4 Write on paper', ne: '4 कागजमा लेख्नुहोस्' },
 
     m_kicker: { ja: 'お{手本|てほん}を{読|よ}もう', en: "Let's read the model essay", ne: 'नमुना निबन्ध पढौं' },
     m_lead: { ja: 'お{手本|てほん}の{作文|さくぶん}を{読|よ}んで、{文|ぶん}の「{役|やく}わり」を{考|かんが}えましょう。',
       en: 'Read the model essay and think about the “role” of each sentence.',
       ne: 'नमुना निबन्ध पढेर हरेक वाक्यको “भूमिका” के हो भनेर सोच्नुहोस्।' },
-    m_note: { ja: 'テーマは「{学校|がっこう}の{制服|せいふく}」です。{黄色|きいろ}の{文|ぶん}は、{作文|さくぶん}の{中|なか}でどんな{役|やく}わりをしていますか？',
-      en: 'The topic is “school uniforms.” What role does the yellow sentence play in the essay?',
-      ne: 'विषय “विद्यालयको पोशाक (युनिफर्म)” हो। पहेँलो वाक्यले निबन्धमा कस्तो भूमिका खेलेको छ?' },
+    m_note: { ja: 'テーマは「{学校|がっこう}の{制服|せいふく}」です。{黄色|きいろ}の{文|ぶん}の{役|やく}わりを、{下|した}のボタンからえらびましょう。',
+      en: 'The topic is “school uniforms.” Choose the role of the yellow sentence from the buttons below.',
+      ne: 'विषय “विद्यालयको पोशाक (युनिफर्म)” हो। पहेँलो वाक्यको भूमिका तलका बटनबाट छान्नुहोस्।' },
     m_q: { ja: '{黄色|きいろ}の{文|ぶん}の{役|やく}わりは？', en: 'What is the role of the yellow sentence?', ne: 'पहेँलो वाक्यको भूमिका के हो?' },
     m_ok: { ja: '◎ せいかい！「%role%」です。', en: '◎ Correct! It is “%role%”.', ne: '◎ सही! यो “%role%” हो।' },
     m_ng: { ja: 'ちがいます。ヒント：%h%', en: 'Not quite. Hint: %h%', ne: 'मिलेन। सङ्केत: %h%' },
-    m_done: { ja: 'よくできました！ これが{意見文|いけんぶん}の「{設計図|せっけいず}」です。',
-      en: 'Well done! This is the “blueprint” of an opinion essay.',
-      ne: 'धेरै राम्रो! यो विचार-निबन्धको “ढाँचा (नक्सा)” हो।' },
-    m_done_note: { ja: '{色|いろ}のついた{表現|ひょうげん}は、{読|よ}む{人|ひと}に「{次|つぎ}に{何|なに}が{来|く}るか」を{知|し}らせる{目|め}じるしです。',
-      en: 'The colored expressions are signposts that tell the reader what comes next.',
-      ne: 'रङ लगाइएका अभिव्यक्तिहरू पाठकलाई “अब के आउँछ” भनेर बताउने सङ्केत हुन्।' },
+    m_done: { ja: 'よくできました！ これが{意見文|いけんぶん}を{書|か}くときの{作文|さくぶん}の{構成|こうせい}です。',
+      en: 'Well done! This is the structure to use when you write an opinion essay.',
+      ne: 'धेरै राम्रो! विचार-निबन्ध लेख्दा प्रयोग गर्ने संरचना यही हो।' },
+    m_done_note: { ja: 'マークは、それぞれの{文|ぶん}の{役|やく}わりです。～には、あなたの{考|かんが}えが{入|はい}ります。',
+      en: 'The marks show the role of each sentence. Your own ideas go into ～.',
+      ne: 'चिन्हहरूले हरेक वाक्यको भूमिका देखाउँछन्। ～ मा तपाईंको आफ्नै विचार पर्छ।' },
+    m_shot: { ja: 'この{書|か}き{方|かた}を{忘|わす}れないように、スクリーンショットしよう！',
+      en: "Take a screenshot so you don't forget this way of writing!",
+      ne: 'यो लेख्ने तरिका नबिर्सन स्क्रिनसट लिनुहोस्!' },
     toQ: { ja: '{自分|じぶん}の{作文|さくぶん}を{作|つく}ろう →', en: 'Make your own essay →', ne: 'आफ्नै निबन्ध बनाऔं →' },
 
     q_intro: { ja: 'はじめに', en: 'First', ne: 'सुरुमा' },
@@ -486,61 +454,38 @@
     btn_back: { ja: '← もどる', en: '← Back', ne: '← पछाडि' },
     btn_backModel: { ja: '← お{手本|てほん}にもどる', en: '← Back to the model', ne: '← नमुनामा फर्कनुहोस्' },
     btn_next: { ja: '{次|つぎ}へ →', en: 'Next →', ne: 'अर्को →' },
-    btn_arrange: { ja: '{答|こた}えをならべる →', en: 'Line up my answers →', ne: 'उत्तरहरू क्रममा राख्नुहोस् →' },
+    btn_backQ: { ja: '← しつもんにもどる', en: '← Back to questions', ne: '← प्रश्नमा फर्कनुहोस्' },
+    btn_build: { ja:'{作文|さくぶん}を{組|く}み{立|た}てる →', en: 'Build my essay →', ne: 'मेरो निबन्ध बनाउनुहोस् →' },
 
-    e_title2: { ja: 'あなたの{答|こた}えをならべました', en: 'Your answers are lined up', ne: 'तपाईंका उत्तरहरू क्रममा राखिए' },
-    e_howto: { ja: '<b>「{表現|ひょうげん}リスト」</b>を{使|つか}って、お{手本|てほん}のように、{読|よ}む{人|ひと}にわかりやすい{作文|さくぶん}にしましょう。<br><b>① {作文|さくぶん}の{中|なか}の、{表現|ひょうげん}を{入|い}れたい{場所|ばしょ}をクリック</b> → <b>② {使|つか}いたい{表現|ひょうげん}をクリック</b>',
-      en: 'Use the “Expression list” to make your essay easy to read, like the model. ① Click the place in your essay where you want to add an expression → ② Click the expression.',
-      ne: '“अभिव्यक्ति सूची” प्रयोग गरेर नमुनाजस्तै पाठकलाई बुझ्न सजिलो निबन्ध बनाउनुहोस्। ① निबन्धमा अभिव्यक्ति राख्न चाहेको ठाउँमा क्लिक गर्नुहोस् → ② प्रयोग गर्न चाहेको अभिव्यक्तिमा क्लिक गर्नुहोस्।' },
-    e_msg: { ja: 'あなたの{答|こた}えが、じゅんばんにならびました。<br>{作文|さくぶん}の{中|なか}をクリックしてから、<b>{表現|ひょうげん}リスト</b>の{表現|ひょうげん}をえらんで{入|い}れましょう。',
-      en: 'Your answers are now in order. Click in your essay, then choose an expression from the Expression list.',
-      ne: 'तपाईंका उत्तरहरू क्रममा राखिए। निबन्धभित्र क्लिक गरेपछि अभिव्यक्ति सूचीबाट अभिव्यक्ति छानेर राख्नुहोस्।' },
-    e_title3: { ja: '{表現|ひょうげん}リスト', en: 'Expression list', ne: 'अभिव्यक्ति सूची' },
-    e_howto3: { ja: '{先|さき}に{作文|さくぶん}の{中|なか}をクリックしてから、えらびましょう。［～］には、あなたの{文|ぶん}が{入|はい}ります。',
-      en: 'First click in your essay, then choose. Your sentence goes into [～].',
-      ne: 'पहिले निबन्धभित्र क्लिक गर्नुहोस्, अनि छान्नुहोस्। [～] मा तपाईंको वाक्य पर्छ।' },
-    multi: { ja: '{何回|なんかい}でも', en: 'any number of times', ne: 'जति पटक पनि' },
-    btn_undo: { ja: '↶ 1つもどす', en: '↶ Undo', ne: '↶ पछाडि फर्काउनुहोस्' },
-    btn_design: { ja: 'お{手本|てほん}の{設計図|せっけいず}', en: 'Model blueprint', ne: 'नमुनाको ढाँचा' },
-    btn_backQ: { ja: 'しつもんにもどる', en: 'Back to questions', ne: 'प्रश्नमा फर्कनुहोस्' },
-    count: { ja: '%n% {字|じ}', en: '%n% characters', ne: '%n% अक्षर' },
-    e_title4: { ja: '{読|よ}みなおして、{完成|かんせい}させましょう', en: 'Read it again and finish it', ne: 'फेरि पढेर पूरा गर्नुहोस्' },
-    e_fin1: { ja: '{作文|さくぶん}の{中|なか}は、{自由|じゆう}に{書|か}きかえられます。', en: 'You can freely rewrite anything in your essay.', ne: 'निबन्धभित्रका कुरा स्वतन्त्र रूपमा फेरि लेख्न सकिन्छ।' },
-    e_fin2: { ja: 'お{手本|てほん}の{設計図|せっけいず}とくらべて、{足|た}りないところはないか{見|み}てみましょう。',
-      en: 'Compare with the model blueprint and check if anything is missing.',
-      ne: 'नमुनाको ढाँचासँग तुलना गरेर केही छुटेको छ कि हेर्नुहोस्।' },
-    btn_export: { ja: '{完成|かんせい}！ {画像|がぞう}にする', en: 'Done! Save as an image', ne: 'पूरा भयो! तस्बिर बनाउनुहोस्' },
-
-    t_clickFirst: { ja: '{先|さき}に、{作文|さくぶん}の{中|なか}の「{表現|ひょうげん}を{入|い}れたい{場所|ばしょ}」をクリックしてください。',
-      en: 'First, click the place in your essay where you want to add the expression.',
-      ne: 'पहिले, निबन्धमा अभिव्यक्ति राख्न चाहेको ठाउँमा क्लिक गर्नुहोस्।' },
-    t_inserted: { ja: '「%x%」を{入|い}れました。', en: 'Added “%x%”.', ne: '“%x%” थपियो।' },
-    t_noTarget: { ja: '「～」に{入|い}れる{文|ぶん}がありません。{文|ぶん}の{前|まえ}をクリックしてから、えらんでください。',
-      en: 'There is no sentence to put into “～”. Click just before a sentence, then choose.',
-      ne: '“～” मा राख्ने वाक्य छैन। वाक्यको अगाडि क्लिक गरेर छान्नुहोस्।' },
-    t_stanceWhere: { ja: 'この{表現|ひょうげん}は、1{問目|もんめ}の{答|こた}え「%st%」の{前|まえ}をクリックしてから{入|い}れましょう。',
-      en: 'Click just before your answer to question 1 (“%st%”), then add this expression.',
-      ne: 'प्रश्न 1 को उत्तर (“%st%”) को अगाडि क्लिक गरेर यो अभिव्यक्ति राख्नुहोस्।' },
-    t_stanceIn: { ja: '「%st%」が{文|ぶん}の{中|なか}に{入|はい}りました。', en: '“%st%” went into the sentence.', ne: '“%st%” वाक्यभित्र राखियो।' },
-    t_noUndo: { ja: 'もどせるものがありません。', en: 'There is nothing to undo.', ne: 'पछाडि फर्काउने केही छैन।' },
-    t_empty: { ja: '{作文|さくぶん}が{空|から}です。', en: 'Your essay is empty.', ne: 'निबन्ध खाली छ।' },
-    c_rebuild: { ja: 'いま{作|つく}っている{作文|さくぶん}は{消|き}えて、{答|こた}えをもう{一度|いちど}ならべなおします。いいですか？',
-      en: 'The essay you are making will be deleted and your answers will be lined up again. Is that OK?',
-      ne: 'अहिले बनाइरहेको निबन्ध मेटिनेछ र उत्तरहरू फेरि क्रममा राखिनेछन्। ठीक छ?' },
-    c_unused: { ja: 'まだ{使|つか}っていない{表現|ひょうげん}が %n% こあります。このまま{画像|がぞう}にしますか？',
-      en: 'There are still %n% expressions you have not used. Make the image anyway?',
-      ne: 'अझै %n% वटा अभिव्यक्ति प्रयोग गरिएका छैनन्। यसै गरी तस्बिर बनाउने?' },
-    c_reset: { ja: '{答|こた}えも{作文|さくぶん}も、ぜんぶ{消|き}えます。さいしょからやりなおしますか？',
-      en: 'All your answers and your essay will be deleted. Start over from the beginning?',
-      ne: 'सबै उत्तर र निबन्ध मेटिनेछन्। सुरुदेखि फेरि गर्ने?' },
+    f_title: { ja: '{構成|こうせい}に、あなたの{答|こた}えをあてはめよう', en: 'Fit your answers into the structure', ne: 'संरचनामा आफ्ना उत्तरहरू मिलाउनुहोस्' },
+    f_howto: { ja: '{空欄|くうらん}をタップして、あなたの{答|こた}えをえらびましょう。えらんだら、うまくつながるように{文|ぶん}を{書|か}きなおします。',
+      en: 'Tap a blank and choose one of your answers. Then rewrite the sentence so that it connects well.',
+      ne: 'खाली ठाउँमा ट्याप गरेर आफ्नो उत्तर छान्नुहोस्। त्यसपछि राम्ररी जोडिने गरी वाक्य फेरि लेख्नुहोस्।' },
+    f_blank: { ja: 'ここをタップ', en: 'Tap here', ne: 'यहाँ ट्याप गर्नुहोस्' },
+    f_left: { ja: '{空欄|くうらん}は、あと %n% こ', en: '%n% blanks left', ne: 'अझै %n% वटा खाली ठाउँ बाँकी' },
+    f_all: { ja: '◎ ぜんぶうまりました！', en: '◎ All the blanks are filled!', ne: '◎ सबै खाली ठाउँ भरियो!' },
+    f_done_btn: { ja: '{作文|さくぶん}ができた！ →', en: 'My essay is finished! →', ne: 'मेरो निबन्ध तयार भयो! →' },
+    f_choose: { ja: 'この{空欄|くうらん}に{入|はい}る{答|こた}えをえらぼう', en: 'Choose the answer that goes in this blank', ne: 'यो खाली ठाउँमा पर्ने उत्तर छान्नुहोस्' },
+    f_fix: { ja: 'いまの{文|ぶん}をなおす', en: 'Edit the current sentence', ne: 'अहिलेको वाक्य सच्याउनुहोस्' },
+    f_ng: { ja: 'ちがうようです。%h%', en: "That doesn't seem right. %h%", ne: 'मिलेन जस्तो छ। %h%' },
+    sh_stance: { ja: 'ここには、あなたが{賛成|さんせい}か{反対|はんたい}かが{入|はい}ります。', en: 'Your position (agree or disagree) goes here.', ne: 'यहाँ तपाईं पक्षमा कि विपक्षमा भन्ने कुरा पर्छ।' },
+    sh_reason: { ja: 'ここには「{理由|りゆう}」が{入|はい}ります。', en: 'A “reason” goes here.', ne: 'यहाँ “कारण” पर्छ।' },
+    sh_ex: { ja: 'ここには、{前|まえ}の{理由|りゆう}の「{例|れい}」が{入|はい}ります。', en: 'An “example” for the reason before goes here.', ne: 'यहाँ अघिल्लो कारणको “उदाहरण” पर्छ।' },
+    sh_opp: { ja: 'ここには、{反対|はんたい}の{立場|たちば}の{人|ひと}の{意見|いけん}が{入|はい}ります。', en: 'The opinion of people on the other side goes here.', ne: 'यहाँ अर्को पक्षका मानिसहरूको विचार पर्छ।' },
+    sh_concede: { ja: 'ここには、{反対意見|はんたいいけん}の「なるほど」と{思|おも}うところが{入|はい}ります。', en: 'The part of the opposing opinion that you think is true goes here.', ne: 'यहाँ विपक्षी विचारमा तपाईंलाई “हो त नि” लागेको कुरा पर्छ।' },
+    sh_rebut: { ja: 'ここには、{反対意見|はんたいいけん}へのあなたの{答|こた}えが{入|はい}ります。', en: 'Your answer to the opposing opinion goes here.', ne: 'यहाँ विपक्षी विचारप्रति तपाईंको जवाफ पर्छ।' },
+    sh_dup: { ja: 'この{答|こた}えは、もうほかのところで{使|つか}っています。', en: 'You have already used this answer in another place.', ne: 'यो उत्तर तपाईंले अर्को ठाउँमा प्रयोग गरिसक्नुभएको छ।' },
+    sh_pair: { ja: 'この{例|れい}は、{前|まえ}の{理由|りゆう}とあっていますか？', en: 'Does this example match the reason before it?', ne: 'के यो उदाहरण अघिल्लो कारणसँग मिल्छ?' },
 
     j_title: { ja: 'つなげてみよう', en: "Let's connect them", ne: 'जोडेर हेरौं' },
-    j_result: { ja: '{表現|ひょうげん}を{入|い}れると、こうなりました。', en: 'After adding the expression, it looks like this:', ne: 'अभिव्यक्ति राख्दा यस्तो भयो:' },
+    j_result: { ja: 'あてはめると、こうなりました。', en: 'When you put it in, it looks like this:', ne: 'राख्दा यस्तो भयो:' },
     j_warn: { ja: '⚠ {赤|あか}い{線|せん}のところが、うまくつながっていません。', en: '⚠ The part with the red line is not connected correctly.', ne: '⚠ रातो रेखा भएको ठाउँ राम्ररी जोडिएको छैन।' },
     j_rule: { ja: '「%w%」の{前|まえ}は、<b>ふつう{形|けい}</b>にします。「ます・です」や「。」は{使|つか}いません。',
       en: 'Before “%w%”, use the <b>plain form</b>. Do not use “ます/です” or “。”.',
       ne: '“%w%” भन्दा अगाडि <b>साधारण रूप (ふつう形)</b> प्रयोग गर्नुहोस्। “ます/です” र “。” प्रयोग नगर्नुहोस्।' },
-    j_generic: { ja: 'つながるように、{下|した}の{文|ぶん}の{形|かたち}を{変|か}えましょう。', en: 'Change the form of the sentence below so that it connects.', ne: 'जोडिने गरी तलको वाक्यको रूप बदल्नुहोस्।' },
+    j_rule_end: { ja: 'この{作文|さくぶん}は、<b>ふつう{形|けい}</b>（〜だ・〜る など）で{書|か}きます。「ます・です」は{使|つか}いません。「。」は、もう{書|か}いてあります。',
+      en: 'This essay is written in the <b>plain form</b> (〜だ, 〜る, etc.). Do not use “ます/です”. The “。” is already there.',
+      ne: 'यो निबन्ध <b>साधारण रूप</b> (〜だ, 〜る आदि) मा लेखिन्छ। “ます/です” प्रयोग नगर्नुहोस्। “。” पहिल्यै लेखिएको छ।' },
     j_done: { ja: 'できあがり：', en: 'Result:', ne: 'नतिजा:' },
     j_check: { ja: 'チェックする', en: 'Check', ne: 'जाँच गर्नुहोस्' },
     j_cancel: { ja: 'やめる', en: 'Cancel', ne: 'रद्द गर्नुहोस्' },
@@ -550,21 +495,34 @@
     jm_period: { ja: 'まだ「。」があります。ここは{文|ぶん}の{終|お}わりではないので、「。」はけしましょう。',
       en: 'There is still a “。”. This is not the end of the sentence, so delete the “。”.',
       ne: 'अझै “。” छ। यहाँ वाक्य सकिँदैन, त्यसैले “。” मेटाउनुहोस्।' },
+    jm_period2: { ja: '「。」が2つになっています。{最後|さいご}の「。」はけしましょう。',
+      en: 'There are two “。”. Delete the last “。”.', ne: '“。” दुईवटा भयो। अन्तिम “。” मेटाउनुहोस्।' },
     jm_comma: { ja: '{最後|さいご}の「、」はけしましょう。', en: 'Delete the “、” at the end.', ne: 'अन्तिमको “、” मेटाउनुहोस्।' },
-    jm_masu: { ja: '「ます・です」の{形|かたち}が{残|のこ}っています。ふつう{形|けい}にしましょう。（れい：なります→なる、ありません→ない、{便利|べんり}です→{便利|べんり}だ）',
-      en: 'The “ます/です” form is still there. Change it to the plain form. (e.g. なります→なる, ありません→ない, 便利です→便利だ)',
-      ne: '“ます/です” रूप अझै बाँकी छ। साधारण रूपमा बदल्नुहोस्। (उदाहरण: なります→なる, ありません→ない, 便利です→便利だ)' },
+    jm_masu: { ja: '「ます・です」の{形|かたち}が{残|のこ}っています。ふつう{形|けい}にしましょう。（れい：なります→なる、{見|み}ています→{見|み}ている、{便利|べんり}です→{便利|べんり}だ）',
+      en: 'The “ます/です” form is still there. Change it to the plain form. (e.g. なります→なる, 見ています→見ている, 便利です→便利だ)',
+      ne: '“ます/です” रूप अझै बाँकी छ। साधारण रूपमा बदल्नुहोस्। (उदाहरण: なります→なる, 見ています→見ている, 便利です→便利だ)' },
     jm_da: { ja: '「〜だ」＋「こと」とは{言|い}いません。な{形容詞|けいようし}は「〜なこと」、{名詞|めいし}は「〜であること」にしましょう。（れい：{便利|べんり}だことだ→{便利|べんり}なことだ）',
       en: 'We don’t say “〜だ＋こと”. For na-adjectives use “〜なこと”; for nouns use “〜であること”. (e.g. 便利だことだ→便利なことだ)',
       ne: '“〜だ＋こと” भनिँदैन। な-विशेषणमा “〜なこと” र नाममा “〜であること” प्रयोग गर्नुहोस्। (उदाहरण: 便利だことだ→便利なことだ)' },
-    jm_watashi: { ja: '「わたしは」が2{回|かい}あります。1つけしましょう。', en: '“わたしは” appears twice. Delete one.', ne: '“わたしは” दुई पटक छ। एउटा मेटाउनुहोस्।' },
+    jm_dup: { ja: '「%w%」が2{回|かい}あります。1つけしましょう。', en: '“%w%” appears twice. Delete one.', ne: '“%w%” दुई पटक छ। एउटा मेटाउनुहोस्।' },
+
+    d_kicker: { ja: '{完成|かんせい}', en: 'Finished', ne: 'पूरा भयो' },
+    d_lead: { ja: '{作文|さくぶん}ができました！ {見|み}ながら、{紙|かみ}にていねいに{書|か}きましょう。',
+      en: 'Your essay is finished! Look at it and write it carefully on paper.',
+      ne: 'तपाईंको निबन्ध तयार भयो! यसलाई हेरेर कागजमा ध्यान दिएर सफा अक्षरमा लेख्नुहोस्।' },
+    d_back: { ja: '← もどってなおす', en: '← Go back and fix', ne: '← फर्केर सच्याउनुहोस्' },
+    d_image: { ja: '{画像|がぞう}で{保存|ほぞん}する', en: 'Save as an image', ne: 'तस्बिरको रूपमा सेभ गर्नुहोस्' },
+    essay_title: { ja: '{子|こ}どものSNS{利用|りよう}について' },
+    count: { ja: '%n% {字|じ}', en: '%n% characters', ne: '%n% अक्षर' },
 
     close: { ja: 'とじる', en: 'Close', ne: 'बन्द गर्नुहोस्' },
     i_hint: { ja: 'うまく{保存|ほぞん}できないときは、{画像|がぞう}を{長|なが}おし（{右|みぎ}クリック）して{保存|ほぞん}してください。',
       en: 'If saving does not work, press and hold (or right-click) the image to save it.',
       ne: 'सेभ नभएमा तस्बिरमा लामो समय थिचेर (वा राइट-क्लिक गरेर) सेभ गर्नुहोस्।' },
     i_save: { ja: '{画像|がぞう}を{保存|ほぞん}する', en: 'Save image', ne: 'तस्बिर सेभ गर्नुहोस्' },
-    i_back: { ja: '{作文|さくぶん}にもどる', en: 'Back to the essay', ne: 'निबन्धमा फर्कनुहोस्' },
+    c_reset: { ja: '{答|こた}えも{作文|さくぶん}も、ぜんぶ{消|き}えます。さいしょからやりなおしますか？',
+      en: 'All your answers and your essay will be deleted. Start over from the beginning?',
+      ne: 'सबै उत्तर र निबन्ध मेटिनेछन्। सुरुदेखि फेरि गर्ने?' },
     reset: { ja: 'さいしょからやりなおす', en: 'Start over', ne: 'सुरुदेखि फेरि गर्नुहोस्' }
   };
 
@@ -577,9 +535,9 @@
     { ja: '2', en: 'second', ne: 'दोस्रो' },
     { ja: '3', en: 'third', ne: 'तेस्रो' }];
 
-  /* ================= データ ================= */
+  /* ================= お手本 ================= */
   const ROLES = {
-    claim:   { name: { ja: '{主張|しゅちょう}', en: 'Claim', ne: 'दाबी (मुख्य विचार)' },
+    claim:   { name: { ja: '{主張|しゅちょう}', en: 'Claim', ne: 'दाबी' },
                hint: { ja: 'この{文|ぶん}で、{書|か}いた{人|ひと}は「{賛成|さんせい}か{反対|はんたい}か」を{言|い}っていますか？', en: 'In this sentence, does the writer say whether they agree or disagree?', ne: 'यो वाक्यमा लेखकले “पक्षमा कि विपक्षमा” भनेका छन्?' } },
     count:   { name: { ja: '{理由|りゆう}の{数|かず}', en: 'Number of reasons', ne: 'कारणको सङ्ख्या' },
                hint: { ja: 'この{文|ぶん}は、これから{何|なに}が{来|く}るかを{教|おし}えていますね。', en: 'This sentence tells you what is coming next.', ne: 'यो वाक्यले अब के आउँदैछ भनेर बताउँछ।' } },
@@ -598,7 +556,6 @@
   };
   const ROLE_ORDER = ['claim', 'count', 'reason', 'ex', 'opp', 'concede', 'rebut', 'sum'];
 
-  // cn = 目じるしになる表現
   const MODEL = [
     { t: 'わたしは、{学校|がっこう}に{制服|せいふく}があることに{賛成|さんせい}だ。', cn: ['わたしは', '{賛成|さんせい}だ'], role: 'claim',
       why: { ja: '{最初|さいしょ}に、{自分|じぶん}の{意見|いけん}をはっきり{言|い}っています。', en: 'At the start, the writer clearly states their opinion.', ne: 'सुरुमै लेखकले आफ्नो विचार स्पष्ट रूपमा भनेका छन्।' } },
@@ -627,36 +584,41 @@
   ];
   const MODEL_PARAS = [[0, 1], [2, 3], [4, 5], [6, 7], [8, 9, 10], [11]];
 
-  const DESIGN = [
-    { role: 'claim', ex: 'わたしは、～に{賛成|さんせい}（{反対|はんたい}）だ。', why: { ja: '{自分|じぶん}の{意見|いけん}を{最初|さいしょ}に{言|い}う', en: 'State your opinion first', ne: 'सुरुमै आफ्नो विचार भन्ने' } },
-    { role: 'count', ex: '{理由|りゆう}は３つある。', why: { ja: 'これから{何|なに}が{来|く}るか{知|し}らせる', en: 'Tell the reader what is coming', ne: 'अब के आउँछ भनेर जानकारी दिने' } },
-    { role: 'reason', ex: '1つ{目|め}は、～ことだ。', indent: true, why: { ja: '{理由|りゆう}を1つずつ{言|い}う', en: 'Give the reasons one by one', ne: 'कारणहरू एक-एक गरी भन्ने' } },
-    { role: 'ex', ex: 'たとえば、～。', indent: true, note: '×３', why: { ja: '{理由|りゆう}をくわしく{説明|せつめい}する', en: 'Explain each reason in detail', ne: 'कारणलाई विस्तारमा बुझाउने' } },
-    { role: 'opp', ex: '{一方|いっぽう}、～という{意見|いけん}の{人|ひと}もいる。', why: { ja: '{反対|はんたい}の{立場|たちば}の{意見|いけん}を{紹介|しょうかい}する', en: 'Introduce the opposing opinion', ne: 'विपक्षी विचार परिचय गराउने' } },
-    { role: 'concede', ex: '{確|たし}かに、～。', why: { ja: '{反対意見|はんたいいけん}の{正|ただ}しいところをみとめる', en: 'Admit what is right in it', ne: 'विपक्षी विचारको सही पक्ष स्वीकार गर्ने' } },
-    { role: 'rebut', ex: 'しかし、わたしは～と{思|おも}う。', why: { ja: '{反対意見|はんたいいけん}に{答|こた}える', en: 'Answer the opposing opinion', ne: 'विपक्षी विचारको जवाफ दिने' } },
-    { role: 'sum', ex: '{以上|いじょう}のことから、わたしは～。', why: { ja: '{最後|さいご}にもう{一度|いちど}、{意見|いけん}を{言|い}う', en: 'Say your opinion again at the end', ne: 'अन्त्यमा फेरि आफ्नो विचार भन्ने' } }
+  // 意見文の構成（～は空欄）
+  const STRUCTURE = [
+    [{ role: 'claim', t: 'わたしは～に{賛成|さんせい}・{反対|はんたい}だ。' }, { role: 'count', t: '{理由|りゆう}は３つある。' }],
+    [{ role: 'reason', t: '1つ{目|め}は～ことだ。' }, { role: 'ex', t: 'たとえば～。' }],
+    [{ role: 'reason', t: '2つ{目|め}は～ことだ。' }, { role: 'ex', t: 'たとえば～。' }],
+    [{ role: 'reason', t: '3つ{目|め}は～ことだ。' }, { role: 'ex', t: 'たとえば～。' }],
+    [{ role: 'opp', t: '{一方|いっぽう}、～という{意見|いけん}の{人|ひと}もいる。' }, { role: 'concede', t: '{確|たし}かに～。' }, { role: 'rebut', t: 'しかし、わたしは～と{思|おも}う。' }],
+    [{ role: 'sum', t: '{以上|いじょう}のことから、わたしは～。' }]
   ];
 
-  // t = 作文に入る文、r = ルビつきの表示
-  const EXPRS = [
-    { t: 'わたしは、子どもがSNSを利用することに～だ。', r: 'わたしは、{子|こ}どもがSNSを{利用|りよう}することに～だ。', stanceSlot: true },
-    { t: '理由は３つある。', r: '{理由|りゆう}は３つある。' },
-    { t: '1つ目は～ことだ。', r: '1つ{目|め}は～ことだ。' },
-    { t: '2つ目は～ことだ。', r: '2つ{目|め}は～ことだ。' },
-    { t: '3つ目は～ことだ。', r: '3つ{目|め}は～ことだ。' },
-    { t: 'たとえば、', r: 'たとえば、', multi: true },
-    { t: '一方、', r: '{一方|いっぽう}、' },
-    { t: '～という意見の人もいる。', r: '～という{意見|いけん}の{人|ひと}もいる。' },
-    { t: '確かに、', r: '{確|たし}かに、' },
-    { t: 'しかし、わたしは～と思う。', r: 'しかし、わたしは～と{思|おも}う。' },
-    { t: '以上のことから、わたしは子どもがSNSを利用することに【1の回答】だ。', r: '{以上|いじょう}のことから、わたしは{子|こ}どもがSNSを{利用|りよう}することに【1の回答】だ。' }
+  /* ================= あてはめる構成 ================= */
+  const FRAME = [
+    [{ role: 'claim', pre: 'わたしは、{子|こ}どもがSNSを{利用|りよう}することに', id: 's0', type: 'stance', suf: 'だ。' },
+     { role: 'count', fixed: '{理由|りゆう}は３つある。' }],
+    [{ role: 'reason', pre: '1つ{目|め}は、', id: 'r1', type: 'reason', suf: 'ことだ。' },
+     { role: 'ex', pre: 'たとえば、', id: 'e1', type: 'ex', pair: 'r1', suf: '。' }],
+    [{ role: 'reason', pre: '2つ{目|め}は、', id: 'r2', type: 'reason', suf: 'ことだ。' },
+     { role: 'ex', pre: 'たとえば、', id: 'e2', type: 'ex', pair: 'r2', suf: '。' }],
+    [{ role: 'reason', pre: '3つ{目|め}は、', id: 'r3', type: 'reason', suf: 'ことだ。' },
+     { role: 'ex', pre: 'たとえば、', id: 'e3', type: 'ex', pair: 'r3', suf: '。' }],
+    [{ role: 'opp', pre: '{一方|いっぽう}、', id: 'op', type: 'opp', suf: 'という{意見|いけん}の{人|ひと}もいる。' },
+     { role: 'concede', pre: '{確|たし}かに、', id: 'cc', type: 'concede', suf: '。' },
+     { role: 'rebut', pre: 'しかし、わたしは', id: 'rb', type: 'rebut', suf: 'と{思|おも}う。' }],
+    [{ role: 'sum', pre: '{以上|いじょう}のことから、わたしは{子|こ}どもがSNSを{利用|りよう}することに', id: 's1', type: 'stance', suf: 'だ。' }]
   ];
+  const SLOTS = FRAME.flat().filter(s => s.id);
+  const slotById = id => SLOTS.find(s => s.id === id);
+  // vals: 0名前 1立場 2理由1 3例1 4理由2 5例2 6理由3 7例3 8反対意見 9みとめる 10反論
+  const ANS_TYPE = { 1: 'stance', 2: 'reason', 3: 'ex', 4: 'reason', 5: 'ex', 6: 'reason', 7: 'ex', 8: 'opp', 9: 'concede', 10: 'rebut' };
 
   const JOIN_RULES = [
     { test: /^こと/, word: 'ことだ', bad: '目が悪くなります。ことだ。', good: '目が悪くなることだ。' },
     { test: /^という/, word: 'という', bad: '便利です。という意見', good: '便利だという意見' },
-    { test: /^と思う/, word: 'と思う', bad: '大切です。と思う。', good: '大切だと思う。' }
+    { test: /^と思う/, word: 'と思う', bad: '大切です。と思う。', good: '大切だと思う。' },
+    { test: /^。$/, end: true, bad: 'SNSを見ています。。', good: 'SNSを見ている。' }
   ];
 
   /* ================= ルビ・翻訳のしくみ ================= */
@@ -691,6 +653,7 @@
     if (ui.lang && d[ui.lang]) s += '\n\n' + fillVars(plain(d[ui.lang]), vars, ui.lang, false);
     return s;
   }
+  const tagHtml = role => `<span class="tag">${tr(ROLES[role].name)}</span>`;
 
   function applyStatic() {
     document.querySelectorAll('[data-t]').forEach(el => { el.innerHTML = tr(el.dataset.t); });
@@ -708,91 +671,74 @@
   });
 
   /* ================= 状態 ================= */
-  // vals: 0名前 1立場 2理由1 3例1 4理由2 5例2 6理由3 7例3 8反対意見 9みとめる 10反論
-  let state = { screen: 'm', mi: 0, qi: 0, vals: Array(11).fill(''), order: null, used: [], html: '' };
+  let state = { screen: 'm', mi: 0, qi: 0, vals: Array(11).fill(''), fill: {}, aorder: null };
   try {
     const s = JSON.parse(localStorage.getItem(STORE_KEY));
     if (s && Array.isArray(s.vals) && s.vals.length === 11) state = Object.assign(state, s);
   } catch (e) {}
-  if (!Array.isArray(state.order) || state.order.length !== EXPRS.length) {
-    state.order = EXPRS.map((_, i) => i);
-    for (let i = state.order.length - 1; i > 0; i--) {
+  if (!Array.isArray(state.aorder) || state.aorder.length !== 10) {
+    state.aorder = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    for (let i = state.aorder.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
-      [state.order[i], state.order[j]] = [state.order[j], state.order[i]];
+      [state.aorder[i], state.aorder[j]] = [state.aorder[j], state.aorder[i]];
     }
   }
+  function save() { try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch (e) {} }
 
-  const editor = $('editor');
-  try { document.execCommand('defaultParagraphSeparator', false, 'p'); } catch (e) {}
-
-  function save() {
-    if (state.screen === 'e') state.html = editor.innerHTML;
-    try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch (e) {}
-  }
-
-  const V = i => (state.vals[i] || '').trim();
+  const V = i => (state.vals[i] || '').trim().replace(/\s*\n+\s*/g, '');
   const stance = () => V(1);
   const oppWord = () => (stance() === '賛成' ? '反対' : stance() === '反対' ? '賛成' : '');
   const stanceVar = w => STANCE[w] || { ja: w, en: w, ne: w };
   const trimEnd = s => s.trim().replace(/[。．.！!？?]+$/, '');
-  const withPeriod = s => {
-    s = s.trim().replace(/\s*\n+\s*/g, '');
-    return /[。！？!?]$/.test(s) ? s : s + '。';
-  };
 
   function renderSteps() {
+    const idx = { m: 0, q: 1, f: 2, d: 3 }[state.screen];
     const lis = $('steps').children;
-    let active = 0;
-    if (state.screen === 'q') active = 1;
-    if (state.screen === 'e') active = EXPRS.every((x, i) => x.multi || state.used.includes(i)) ? 3 : 2;
-    for (let i = 0; i < lis.length; i++) lis[i].className = i < active ? 'done' : i === active ? 'active' : '';
+    for (let i = 0; i < lis.length; i++) lis[i].className = i < idx ? 'done' : i === idx ? 'active' : '';
   }
 
   function rerender() {
     if (state.screen === 'm') renderModel(true);
     if (state.screen === 'q') renderQ(true);
-    if (state.screen === 'e') {
-      renderExprs(); updateCounts();
-      if (!$('msg').hidden && $('msg').dataset.key) showMsg($('msg').dataset.key);
-    }
+    if (state.screen === 'f') renderFill();
+    if (state.screen === 'd') renderFinal();
     renderSteps();
   }
 
   function showScreen() {
-    $('screenM').hidden = state.screen !== 'm';
-    $('screenQ').hidden = state.screen !== 'q';
-    $('screenE').hidden = state.screen !== 'e';
-    if (state.screen === 'e' && !editor.innerHTML && state.html) editor.innerHTML = state.html;
+    ['m', 'q', 'f', 'd'].forEach(s => { $('screen' + s.toUpperCase()).hidden = state.screen !== s; });
+    $('roleBox').hidden = true;
+    document.body.classList.remove('model-active');
     rerender();
     window.scrollTo(0, 0);
+    if (state.screen === 'm' && state.mi > 0 && state.mi < MODEL.length) scrollToCurrent(false);
   }
 
-  /* ================= ⓪ お手本 ================= */
-  function sentenceHtml(i, labeled) {
+  /* ================= 1 お手本 ================= */
+  function sentenceHtml(i) {
     const m = MODEL[i];
+    const labeled = i < state.mi;
     let src = m.t;
     if (labeled) m.cn.forEach(c => { src = src.replace(c, `<span class="cn">${c}</span>`); });
-    const tag = labeled ? `<span class="tag">${ruby(ROLES[m.role].name.ja)}</span>` : '';
     const cls = ['ms'];
     if (labeled) cls.push('role-' + m.role);
     else if (i === state.mi) cls.push('cur');
-    return `<span class="${cls.join(' ')}" data-i="${i}">${tag}${ruby(src)}</span>`;
+    return `<span class="${cls.join(' ')}" data-i="${i}">${labeled ? tagHtml(m.role) : ''}${ruby(src)}</span>`;
   }
 
   let lastFb = null;
   function renderModel(keepFb) {
-    $('modelEssay').innerHTML = MODEL_PARAS.map(p =>
-      `<p>${p.map(i => sentenceHtml(i, i < state.mi)).join('')}</p>`).join('');
+    $('modelEssay').innerHTML = MODEL_PARAS.map(p => `<p>${p.map(sentenceHtml).join('')}</p>`).join('');
     const done = state.mi >= MODEL.length;
-    $('roleBox').hidden = done;
+    const active = state.screen === 'm' && !done;
+    $('roleBox').hidden = !active;
+    document.body.classList.toggle('model-active', active);
     $('modelDone').hidden = !done;
-    if (done) { $('designMain').innerHTML = designHtml(); return; }
+    if (done) { $('structure').innerHTML = structureHtml(); return; }
     $('modelProgress').textContent = `${state.mi + 1} / ${MODEL.length}`;
     $('roles').innerHTML = ROLE_ORDER.map(r => `<button type="button" class="role-btn" data-r="${r}">${tr(ROLES[r].name)}</button>`).join('');
     $('roles').querySelectorAll('.role-btn').forEach(b => b.onclick = () => answerRole(b));
-    if (keepFb && lastFb) showRoleFb(lastFb);
-    const cur = $('modelEssay').querySelector('.ms.cur');
-    if (!keepFb && cur && cur.scrollIntoView && innerWidth < 820) cur.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    if (keepFb && lastFb) showRoleFb(lastFb); else if (!keepFb) $('roleFb').hidden = true;
   }
 
   function showRoleFb(fb) {
@@ -800,48 +746,50 @@
     box.hidden = false;
     box.className = 'fb ' + (fb.ok ? 'ok' : 'ng');
     const m = MODEL[fb.i];
-    box.innerHTML = fb.ok
-      ? tr('m_ok', { role: ROLES[m.role].name }) + tr(m.why)
-      : tr('m_ng', { h: ROLES[m.role].hint });
+    box.innerHTML = fb.ok ? tr('m_ok', { role: ROLES[m.role].name }) + tr(m.why) : tr('m_ng', { h: ROLES[m.role].hint });
+  }
+
+  function scrollToCurrent(smooth) {
+    requestAnimationFrame(() => {
+      const cur = $('modelEssay').querySelector('.ms.cur');
+      if (cur) cur.scrollIntoView({ block: 'start', behavior: smooth ? 'smooth' : 'auto' });
+    });
   }
 
   function answerRole(btn) {
     const i = state.mi, m = MODEL[i];
-    if (btn.dataset.r === m.role) {
-      lastFb = { ok: true, i };
-      state.mi++;
-      save();
-      renderModel();
-      if (state.mi < MODEL.length) showRoleFb(lastFb);
-    } else {
+    if (btn.dataset.r !== m.role) {
       lastFb = { ok: false, i };
       showRoleFb(lastFb);
       btn.classList.remove('shake'); void btn.offsetWidth; btn.classList.add('shake');
+      return;
+    }
+    lastFb = { ok: true, i };
+    state.mi++;
+    save();
+    renderModel();
+    if (state.mi < MODEL.length) {
+      showRoleFb(lastFb);
+      scrollToCurrent(true);
+    } else {
+      requestAnimationFrame(() => $('modelDone').scrollIntoView({ block: 'start', behavior: 'smooth' }));
     }
   }
 
-  function designHtml() {
-    return DESIGN.map((d, i) =>
-      (i ? '<div class="arrow">▼</div>' : '') +
-      `<div class="blk role-${d.role}${d.indent ? ' indent' : ''}">
-         <div class="rn">${tr(ROLES[d.role].name)}${d.note ? ' <small>' + d.note + '</small>' : ''}</div>
-         <div><div class="ex">${ruby(d.ex)}</div><div class="why">${tr(d.why)}</div></div>
-       </div>`).join('');
+  function structureHtml() {
+    return STRUCTURE.map(p => '<p>' + p.map(s =>
+      `<span class="seg role-${s.role}">${tagHtml(s.role)}${ruby(s.t).replace(/～/g, '<span class="blank">～</span>')}</span>`
+    ).join('') + '</p>').join('');
   }
 
   $('toQ').onclick = () => { state.screen = 'q'; save(); showScreen(); };
-  $('showDesign').onclick = () => { $('designSub').innerHTML = designHtml(); $('designModal').hidden = false; };
-  $('closeDesign').onclick = () => { $('designModal').hidden = true; };
 
-  /* ================= ① 一問一答 ================= */
+  /* ================= 2 一問一答 ================= */
   const reasonQ = n => ({
     label: () => n === 1 ? tr('q_reason1', { st: stanceVar(stance()) }) : tr('q_reasonN', { n: ORD[n] }),
     hint: 'hint_one'
   });
-  const exampleQ = (n, ri) => ({
-    label: () => tr('q_ex', { n: ORD[n], r: trimEnd(V(ri)) }),
-    hint: 'hint_ex'
-  });
+  const exampleQ = (n, ri) => ({ label: () => tr('q_ex', { n: ORD[n], r: trimEnd(V(ri)) }), hint: 'hint_ex' });
   const QUESTIONS = [
     { short: true, label: () => tr('q_name') },
     { choice: true, label: () => tr('q_stance') },
@@ -861,11 +809,11 @@
     $('qhint').innerHTML = q.hint ? tr(q.hint) : '';
     $('qerr').innerHTML = '';
     $('qback').innerHTML = tr(qi === 0 ? 'btn_backModel' : 'btn_back');
-    $('qnext').innerHTML = tr(qi === QUESTIONS.length - 1 ? 'btn_arrange' : 'btn_next');
+    $('qnext').innerHTML = tr(qi === QUESTIONS.length - 1 ? 'btn_build' : 'btn_next');
 
     const box = $('qinput');
     const prev = $('qtext');
-    if (keepFocus && prev && box.contains(prev)) return renderSteps();
+    if (keepFocus && prev && box.contains(prev)) return;
     if (q.choice) {
       box.innerHTML = `<div class="choices">${['賛成', '反対'].map(o =>
         `<button type="button" class="choice${state.vals[qi] === o ? ' sel' : ''}" data-v="${o}">${tr({ ja: STANCE[o].ja, en: STANCE[o].btn.en, ne: STANCE[o].btn.ne })}</button>`).join('')}</div>`;
@@ -880,17 +828,15 @@
       };
       setTimeout(() => t.focus(), 0);
     }
-    renderSteps();
   }
 
   function nextQ() {
     const qi = state.qi;
-    if (!V(qi)) {
-      $('qerr').innerHTML = tr(QUESTIONS[qi].choice ? 'err_choice' : 'err_text');
-      return;
-    }
+    if (!V(qi)) { $('qerr').innerHTML = tr(QUESTIONS[qi].choice ? 'err_choice' : 'err_text'); return; }
     if (qi < QUESTIONS.length - 1) { state.qi++; save(); renderQ(); window.scrollTo(0, 0); return; }
-    buildEssay();
+    state.screen = 'f';
+    save();
+    showScreen();
   }
   $('qnext').onclick = nextQ;
   $('qback').onclick = () => {
@@ -898,210 +844,107 @@
     else { state.screen = 'm'; save(); showScreen(); }
   };
 
-  /* ================= ② 答えをならべる ================= */
-  function buildEssay() {
-    if (state.html && !confirm(tp('c_rebuild'))) return;
-    const s = i => withPeriod(V(i));
-    const paras = [stance(), s(2) + s(3), s(4) + s(5), s(6) + s(7), s(8) + s(9) + s(10)];
-    editor.innerHTML = paras.map(l => `<p>${esc(l)}</p>`).join('');
-    state.used = [];
-    undoStack.length = 0;
-    savedRange = null;
-    state.screen = 'e';
-    save();
-    showScreen();
-    showMsg('e_msg');
+  /* ================= 3 構成にあてはめる ================= */
+  function renderFill() {
+    $('frame').innerHTML = FRAME.map(p => '<p>' + p.map(seg => {
+      let body;
+      if (seg.fixed) body = ruby(seg.fixed);
+      else {
+        const f = state.fill[seg.id];
+        const slot = f
+          ? `<span class="slot filled" role="button" tabindex="0" data-id="${seg.id}">${esc(f.text)}</span>`
+          : `<span class="slot empty" role="button" tabindex="0" data-id="${seg.id}">${tr('f_blank')}</span>`;
+        body = ruby(seg.pre) + slot + ruby(seg.suf);
+      }
+      return `<span class="seg role-${seg.role}">${tagHtml(seg.role)}${body}</span>`;
+    }).join('') + '</p>').join('');
+    const left = SLOTS.filter(s => !state.fill[s.id]).length;
+    $('leftCount').innerHTML = left ? tr('f_left', { n: String(left) }) : tr('f_all');
+    $('toDone').hidden = left > 0;
   }
 
-  $('backToQ').onclick = () => { state.screen = 'q'; state.qi = 1; save(); hideMarker(); showScreen(); };
-
-  /* ================= ③ 表現リスト ================= */
-  function chipHtml(x) {
-    const label = x.r.split('【1の回答】').join(stance() ? stanceVar(stance()).ja : '');
-    return ruby(label).replace('～', '<span class="slot">～</span>') +
-      (x.multi ? `<span class="multi">${tr('multi')}</span>` : '');
+  function onSlot(e) {
+    const el = e.target.closest('.slot');
+    if (!el) return;
+    if (e.type === 'keydown' && e.key !== 'Enter' && e.key !== ' ') return;
+    e.preventDefault();
+    openChooser(el.dataset.id);
   }
-  function renderExprs() {
-    const list = $('exprList');
-    list.innerHTML = '';
-    state.order.forEach(i => {
-      const x = EXPRS[i];
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'chip';
-      b.disabled = !x.multi && state.used.includes(i);
-      b.innerHTML = chipHtml(x);
-      b.addEventListener('pointerdown', e => e.preventDefault());
-      b.addEventListener('mousedown', e => e.preventDefault());
-      b.onclick = () => insertExpr(i);
-      list.appendChild(b);
-    });
-    renderSteps();
-  }
+  $('frame').addEventListener('click', onSlot);
+  $('frame').addEventListener('keydown', onSlot);
 
-  let savedRange = null;
-  document.addEventListener('selectionchange', () => {
-    const sel = getSelection();
-    if (!sel.rangeCount) return;
-    const r = sel.getRangeAt(0);
-    if (editor.contains(r.startContainer)) { savedRange = r.cloneRange(); hideMarker(); }
-  });
-  editor.addEventListener('blur', () => setTimeout(showMarker, 0));
-  editor.addEventListener('focus', hideMarker);
-  window.addEventListener('resize', () => { if (document.activeElement !== editor) showMarker(); });
-
-  function showMarker() {
-    const m = $('marker');
-    if (!savedRange || state.screen !== 'e' || !editor.contains(savedRange.startContainer) || !$('joinModal').hidden) { m.hidden = true; return; }
-    const r = savedRange.cloneRange(); r.collapse(true);
-    let rect = r.getClientRects()[0];
-    if (!rect) {
-      const n = r.startContainer.nodeType === 1 ? (r.startContainer.childNodes[r.startOffset] || r.startContainer) : r.startContainer.parentNode;
-      if (n && n.getBoundingClientRect) rect = n.getBoundingClientRect();
-    }
-    if (!rect || (!rect.height && !rect.width)) { m.hidden = true; return; }
-    const wrap = $('editorWrap').getBoundingClientRect();
-    const h = Math.max(rect.height, 24);
-    m.style.left = (rect.left - wrap.left - 1) + 'px';
-    m.style.top = (rect.top - wrap.top + (rect.height - h) / 2) + 'px';
-    m.style.height = h + 'px';
-    m.hidden = false;
+  let chooseId = null;
+  function openChooser(id) {
+    chooseId = id;
+    const seg = slotById(id);
+    $('chooseSlot').innerHTML = `<span class="seg role-${seg.role}">${tagHtml(seg.role)}${ruby(seg.pre)}<span class="here">　？　</span>${ruby(seg.suf)}</span>`;
+    const usedSrc = SLOTS.filter(s => s.id !== id && state.fill[s.id]).map(s => state.fill[s.id].src);
+    $('chooseList').innerHTML = state.aorder.map(src =>
+      `<button type="button" class="ans${usedSrc.includes(src) ? ' used' : ''}" data-src="${src}">${esc(V(src))}</button>`).join('');
+    $('chooseList').querySelectorAll('.ans').forEach(b => b.onclick = () => pickAnswer(b));
+    $('chooseFb').hidden = true;
+    $('chooseFix').hidden = !state.fill[id];
+    $('chooseModal').hidden = false;
   }
-  function hideMarker() { $('marker').hidden = true; }
-
-  // カーソル位置 → { 段落, 段落の中の文字の位置 }
-  function locate(node, off) {
-    if (node === editor) {
-      const kids = editor.childNodes;
-      if (!kids.length) { const p = document.createElement('p'); editor.appendChild(p); return { p, offset: 0 }; }
-      if (off < kids.length) { node = kids[off]; off = 0; }
-      else { node = kids[kids.length - 1]; off = node.nodeType === 3 ? node.data.length : node.childNodes.length; }
-    }
-    let blk = node;
-    while (blk && blk.parentNode !== editor) blk = blk.parentNode;
-    if (!blk) return null;
-    if (blk.nodeType === 3 || !/^(P|DIV)$/.test(blk.tagName)) {
-      const p = document.createElement('p');
-      editor.insertBefore(p, blk);
-      p.appendChild(blk);
-      blk = p;
-    }
-    const r = document.createRange();
-    r.setStart(blk, 0);
-    r.setEnd(node, off);
-    return { p: blk, offset: r.toString().length };
-  }
-
-  function setCaret(p, off) {
-    const w = document.createTreeWalker(p, NodeFilter.SHOW_TEXT);
-    let n, acc = 0, last = null, placed = false;
-    const r = document.createRange();
-    while ((n = w.nextNode())) {
-      last = n;
-      if (acc + n.data.length >= off) { r.setStart(n, off - acc); placed = true; break; }
-      acc += n.data.length;
-    }
-    if (!placed) { if (last) r.setStart(last, last.data.length); else r.setStart(p, 0); }
-    r.collapse(true);
-    savedRange = r.cloneRange();
-    if (document.activeElement === editor) { const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); }
-    else showMarker();
-  }
-
-  const END = /[。！？!?]/;
-  // カーソルの後ろの1文（文の終わりならその文）の範囲
-  function targetSentence(T, c) {
-    const rel = T.slice(c).search(END);
-    let end = rel < 0 ? T.length : c + rel + 1;
-    if (!T.slice(c, end).trim()) {
-      end = c;
-      while (end > 0 && /\s/.test(T[end - 1])) end--;
-      let i = end - 2;
-      while (i >= 0 && !END.test(T[i])) i--;
-      c = i + 1;
-    }
-    while (c < end && /\s/.test(T[c])) c++;
-    while (end > c && /\s/.test(T[end - 1])) end--;
-    return end > c ? { start: c, end } : null;
-  }
-
-  const undoStack = [];
-  function pushUndo() {
-    undoStack.push({ html: editor.innerHTML, used: state.used.slice() });
-    if (undoStack.length > 30) undoStack.shift();
-  }
-  $('undoBtn').onclick = () => {
-    const u = undoStack.pop();
-    if (!u) { toast('t_noUndo'); return; }
-    editor.innerHTML = u.html;
-    state.used = u.used;
-    savedRange = null;
-    hideMarker(); hideMsg();
-    renderExprs(); updateCounts(); save();
+  $('chooseCancel').onclick = () => { $('chooseModal').hidden = true; };
+  $('chooseFix').onclick = () => {
+    const seg = slotById(chooseId), f = state.fill[chooseId];
+    $('chooseModal').hidden = true;
+    if (seg.type === 'stance') return;
+    openJoin(seg, f.src, f.text, true);
   };
 
-  function markUsed(i) {
-    if (!state.used.includes(i)) state.used.push(i);
-    renderExprs(); updateCounts(); save();
+  function choiceError(seg, src) {
+    if (ANS_TYPE[src] !== seg.type) return 'sh_' + seg.type;
+    if (seg.type === 'reason' || seg.type === 'ex') {
+      const dup = SLOTS.some(s => s.id !== seg.id && state.fill[s.id] && state.fill[s.id].src === src);
+      if (dup) return 'sh_dup';
+    }
+    if (seg.type === 'ex' && state.fill[seg.pair] && src !== state.fill[seg.pair].src + 1) return 'sh_pair';
+    return null;
   }
 
-  function insertExpr(i) {
-    if (!savedRange || !editor.contains(savedRange.startContainer)) { toast('t_clickFirst'); return; }
-    const loc = locate(savedRange.startContainer, savedRange.startOffset);
-    if (!loc) return;
-    const T0 = loc.p.textContent;
-    const expr = EXPRS[i].t.split('【1の回答】').join(stance());
-
-    if (!expr.includes('～')) {
-      pushUndo();
-      loc.p.textContent = T0.slice(0, loc.offset) + expr + T0.slice(loc.offset);
-      setCaret(loc.p, loc.offset + expr.length);
-      toast('t_inserted', { x: expr });
-      markUsed(i);
+  function pickAnswer(btn) {
+    const src = Number(btn.dataset.src);
+    const seg = slotById(chooseId);
+    const err = choiceError(seg, src);
+    if (err) {
+      const fb = $('chooseFb');
+      fb.hidden = false;
+      fb.className = 'fb ng';
+      fb.innerHTML = tr('f_ng', { h: T[err] });
+      btn.classList.remove('shake'); void btn.offsetWidth; btn.classList.add('shake');
       return;
     }
-
-    const rng = targetSentence(T0, loc.offset);
-    if (!rng) { toast('t_noTarget'); return; }
-    const [pre, suf] = expr.split('～');
-    const target = T0.slice(rng.start, rng.end);
-
-    if (EXPRS[i].stanceSlot) {
-      const word = target.replace(/[。．.！!？?\s]+$/, '').replace(/(です|だ)$/, '');
-      if (word !== stance()) { toast('t_stanceWhere', { st: stance() }); return; }
-      pushUndo();
-      const sentence = pre + stance() + suf;
-      loc.p.textContent = T0.slice(0, rng.start) + sentence + T0.slice(rng.end);
-      setCaret(loc.p, rng.start + sentence.length);
-      toast('t_stanceIn', { st: stance() });
-      markUsed(i);
+    $('chooseModal').hidden = true;
+    if (seg.type === 'stance') {
+      state.fill[seg.id] = { src, text: V(src) };
+      save();
+      renderFill();
       return;
     }
-
-    const preStr = pre && !/[、，。]$/.test(pre) ? pre + '、' : pre;
-    openJoin(preStr, target, suf, inner => {
-      pushUndo();
-      loc.p.textContent = T0.slice(0, rng.start) + preStr + inner + suf + T0.slice(rng.end);
-      setCaret(loc.p, rng.start + preStr.length + inner.length + suf.length);
-      markUsed(i);
-    });
+    openJoin(seg, src, V(src), false);
   }
 
-  /* ================= つなぐ練習 ================= */
+  /* ================= つなげてみよう ================= */
   let joinCtx = null;
 
-  function openJoin(pre, target, suf, onOK) {
-    joinCtx = { pre, suf, onOK, tries: 0 };
-    const em = target.match(/(?:ませんでした|でしょう|ました|ません|でした|ます|です)?[。！？!?]?$/);
-    let k = em[0].length;
-    if (k <= 1) k = Math.min(target.length, k + 1);
-    $('naive').innerHTML = esc(pre + target.slice(0, target.length - k)) +
-      `<span class="bad">${esc(target.slice(target.length - k) + suf)}</span>`;
+  function openJoin(seg, src, target, editing) {
+    const pre = plain(seg.pre), suf = plain(seg.suf);
+    joinCtx = { seg, src, pre, suf, tries: 0 };
+    $('joinNaiveBox').hidden = editing;
+    if (!editing) {
+      const em = target.match(/(?:ませんでした|でしょう|ました|ません|でした|ます|です)?[。！？!?]?$/);
+      let k = em[0].length;
+      if (k <= 1) k = Math.min(target.length, k + 1);
+      $('naive').innerHTML = esc(pre + target.slice(0, target.length - k)) +
+        `<span class="bad">${esc(target.slice(target.length - k) + suf)}</span>`;
+    }
     const rule = JOIN_RULES.find(r => r.test.test(suf));
     $('joinRule').innerHTML = rule
-      ? tr('j_rule', { w: rule.word }) +
+      ? (rule.end ? tr('j_rule_end') : tr('j_rule', { w: rule.word })) +
         `<div class="join-ex">れい：<s style="color:var(--red)">${esc(rule.bad)}</s> → <b style="color:var(--ok)">${esc(rule.good)}</b></div>`
-      : tr('j_generic');
+      : '';
     $('joinPre').textContent = pre;
     $('joinPre').hidden = !pre;
     $('joinSuf').textContent = suf;
@@ -1109,7 +952,6 @@
     input.value = target;
     $('joinFb').hidden = true;
     updateJoinPreview();
-    hideMarker();
     $('joinModal').hidden = false;
     setTimeout(() => { input.focus(); input.setSelectionRange(input.value.length, input.value.length); }, 0);
   }
@@ -1124,86 +966,78 @@
   });
 
   function judgeJoin(inner, pre, suf) {
-    if (inner.length < 2) return 'jm_short';
-    if (/[。．.！!？?]$/.test(inner)) return 'jm_period';
-    if (/[、，]$/.test(inner)) return 'jm_comma';
-    if (/(ます|ません|ました|ませんでした|です|でした|でしょう)$/.test(inner)) return 'jm_masu';
-    if (/^こと/.test(suf) && /だ$/.test(inner) && !/[んい]だ$/.test(inner)) return 'jm_da';
-    if (/(わたし|私)は、?$/.test(pre) && /^(わたし|私)は/.test(inner)) return 'jm_watashi';
+    if (inner.length < 2) return ['jm_short'];
+    if (/[。．.！!？?]$/.test(inner)) return [suf === '。' ? 'jm_period2' : 'jm_period'];
+    if (/[、，]$/.test(inner)) return ['jm_comma'];
+    if (/(ます|ません|ました|ませんでした|です|でした|でしょう)$/.test(inner)) return ['jm_masu'];
+    if (/^こと/.test(suf) && /だ$/.test(inner) && !/[んい]だ$/.test(inner)) return ['jm_da'];
+    const m = pre.match(/(たとえば|確かに|しかし|わたしは|一方)、?$/);
+    if (m) {
+      const head = inner.replace(/^[、\s]+/, '');
+      const words = m[1] === 'わたしは' ? ['わたしは', '私は'] : m[1] === '確かに' ? ['確かに', 'たしかに'] : [m[1]];
+      const hit = words.find(w => head.startsWith(w));
+      if (hit) return ['jm_dup', { w: hit }];
+    }
     return null;
   }
 
   function checkJoin() {
     if (!joinCtx) return;
-    const inner = $('joinInput').value.trim();
+    const inner = $('joinInput').value.trim().replace(/\s*\n+\s*/g, '');
     const ng = judgeJoin(inner, joinCtx.pre, joinCtx.suf);
     const fb = $('joinFb');
     fb.hidden = false;
     if (ng) {
       joinCtx.tries++;
       fb.className = 'fb ng';
-      fb.innerHTML = tr(ng) + (joinCtx.tries >= 3 ? `<small>${tr('j_ask')}</small>` : '');
+      fb.innerHTML = tr(ng[0], ng[1]) + (joinCtx.tries >= 3 ? `<small>${tr('j_ask')}</small>` : '');
       return;
     }
     fb.className = 'fb ok';
     fb.innerHTML = tr('j_ok');
     const ctx = joinCtx;
     joinCtx = null;
-    setTimeout(() => { $('joinModal').hidden = true; ctx.onOK(inner); }, 700);
+    setTimeout(() => {
+      $('joinModal').hidden = true;
+      state.fill[ctx.seg.id] = { src: ctx.src, text: inner };
+      save();
+      renderFill();
+    }, 700);
   }
   $('joinCheck').onclick = checkJoin;
-  $('joinCancel').onclick = () => { joinCtx = null; $('joinModal').hidden = true; showMarker(); };
+  $('joinCancel').onclick = () => { joinCtx = null; $('joinModal').hidden = true; };
 
-  /* ================= メッセージ ================= */
-  function showMsg(key) {
-    const box = $('msg');
-    box.dataset.key = key;
-    box.className = 'msg info';
-    box.innerHTML = tr(key) + '<button class="close" aria-label="とじる">×</button>';
-    box.hidden = false;
-    box.querySelector('.close').onclick = hideMsg;
-  }
-  function hideMsg() { $('msg').hidden = true; }
+  $('backToQ').onclick = () => { state.screen = 'q'; state.qi = 1; save(); showScreen(); };
+  $('toDone').onclick = () => { state.screen = 'd'; save(); showScreen(); };
 
-  let toastTimer;
-  function toast(key, vars) {
-    let t = document.querySelector('.toast');
-    if (!t) { t = document.createElement('div'); t.className = 'toast'; document.body.appendChild(t); }
-    t.innerHTML = tr(key, vars);
-    t.hidden = false;
-    clearTimeout(toastTimer);
-    toastTimer = setTimeout(() => { t.hidden = true; }, ui.lang ? 4500 : 3000);
-  }
-
-  /* ================= ④ 完成 ================= */
-  editor.addEventListener('input', () => { updateCounts(); save(); });
-  editor.addEventListener('paste', e => {
-    e.preventDefault();
-    document.execCommand('insertText', false, (e.clipboardData || window.clipboardData).getData('text/plain'));
-  });
-  editor.addEventListener('drop', e => e.preventDefault());
-
-  function essayParagraphs() {
-    return Array.from(editor.childNodes).map(n => (n.textContent || '').replace(/\s+/g, ' ').trim()).filter(Boolean);
+  /* ================= 4 完成 ================= */
+  function essayParas() {
+    return FRAME.map(p => p.map(seg => seg.fixed ? plain(seg.fixed)
+      : plain(seg.pre) + (state.fill[seg.id] ? state.fill[seg.id].text : '') + plain(seg.suf)).join(''));
   }
   const countChars = paras => paras.join('').replace(/\s/g, '').length;
-  function updateCounts() { $('count').innerHTML = tr('count', { n: String(countChars(essayParagraphs())) }); }
+
+  function renderFinal() {
+    const body = FRAME.map(p => '<p>' + p.map(seg => seg.fixed ? ruby(seg.fixed)
+      : ruby(seg.pre) + esc(state.fill[seg.id] ? state.fill[seg.id].text : '') + ruby(seg.suf)).join('') + '</p>').join('');
+    $('finalPaper').innerHTML =
+      `<p class="ftitle">${ruby(T.essay_title.ja)}</p><p class="fname">${esc(V(0))}</p>` + body;
+    $('count').innerHTML = tr('count', { n: String(countChars(essayParas())) });
+  }
+
+  $('backToFill').onclick = () => { state.screen = 'f'; save(); showScreen(); };
 
   $('exportBtn').onclick = async () => {
-    const unused = EXPRS.filter((x, i) => !x.multi && !state.used.includes(i)).length;
-    if (unused && !confirm(tp('c_unused', { n: String(unused) }))) return;
-    const paras = essayParagraphs();
-    if (!paras.length) { toast('t_empty'); return; }
-    const url = await drawEssay(paras);
+    const url = await drawEssay(essayParas());
     $('outImg').src = url;
     $('dlLink').href = url;
     $('dlLink').download = `作文_${V(0) || 'なまえ'}.png`;
-    $('modal').hidden = false;
+    $('imgModal').hidden = false;
   };
-  $('closeModal').onclick = () => { $('modal').hidden = true; };
+  $('closeImg').onclick = () => { $('imgModal').hidden = true; };
 
   async function drawEssay(paras) {
-    const title = '子どものSNS利用について';
+    const title = plain(T.essay_title.ja);
     const name = V(0);
     const W = 1240, M = 100, FS = 36, LH = 76;
     const serif = '"Klee One", "Hiragino Mincho ProN", "Yu Mincho", serif';
@@ -1230,7 +1064,6 @@
     ctx.strokeStyle = '#d8d0bf';
     ctx.lineWidth = 2;
     ctx.strokeRect(40, 40, W - 80, H - 80);
-
     ctx.fillStyle = '#23304a';
     ctx.font = titleFont;
     ctx.textAlign = 'center';
@@ -1239,7 +1072,6 @@
     ctx.textAlign = 'right';
     ctx.fillText(`名前：${name}`, W - M, 215);
     ctx.textAlign = 'left';
-
     const totalLines = Math.floor((H - headH - 120) / LH);
     ctx.strokeStyle = '#c9d6e6';
     ctx.lineWidth = 1.5;
@@ -1250,7 +1082,6 @@
     ctx.fillStyle = '#23304a';
     ctx.font = bodyFont;
     lines.forEach((l, i) => ctx.fillText(l, M, headH + (i + 1) * LH - 20));
-
     ctx.font = '400 26px "Zen Maru Gothic", sans-serif';
     ctx.fillStyle = '#6b7385';
     ctx.textAlign = 'right';
